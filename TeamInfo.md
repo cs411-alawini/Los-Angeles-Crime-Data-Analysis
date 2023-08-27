@@ -4,16 +4,16 @@
 
 |   Info      |        Description     |
 | ----------- | ---------------------- |
-| TeamID      |        Team-000        |
-| TeamName    |         sample         |
-| Captain     |       Abdu Alawini     |
-| Captain     |  alawini@illinois.edu  |
-| Member1     |        Kevin Pei       |
-| Member1     |   kevin2@illinois.edu  |
-| Member2     |    Bharati Kulkarni    |
-| Member2     |  bharati1@illinois.edu |
-| Member3     |                        |
-| Member3     |                        |
+| TeamID      |        Team-037        |
+| TeamName    |         Team37         |
+| Captain     |      Xixiang Liu       |
+| Captain     | xixiang3@illinois.edu  |
+| Member1     |      Haobai Wang       |
+| Member1     | haobaiw2@illinois.edu  |
+| Member2     |      Tiansu Chen       |
+| Member2     | tiansuc2@illinois.edu  |
+| Member3     |      Jiawei Wu         |
+| Member3     | jiawei14@illinois.edu  |
 
 ## Project Information
 
