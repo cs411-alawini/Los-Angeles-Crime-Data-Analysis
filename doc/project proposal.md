@@ -40,8 +40,29 @@ Future Development Plan:
 
 ## 10. Work Distribution
 
-+ Xixiang: Frontend and UI Design
+ **Xixiang: Frontend and UI Design**
 
-+ Haobai: Server with RESTful Services (API)
-+ Tiansu: Database Design
-+ Jiawei: Other Backend
+- Design the overall layout and aesthetic of the web application, ensuring it's user-friendly and intuitive.
+- Implement interactive data visualization tools, allowing users to explore crime data dynamically.
+- Develop the personalized user dashboard, allowing users to customize their views and set alerts.
+- Ensure the application is responsive and optimized for various screen sizes and devices.
+
+**Haobai: Server with RESTful Services (API)**
+
+- Set up and maintain the server infrastructure to support the web application.
+- Develop RESTful services to fetch data from the database and serve it to the frontend.
+- Handle the "Feedback and Reporting" feature, ensuring that community feedback is captured and stored correctly.
+
+**Tiansu: Database Design**
+
+- Set up and maintain the database that stores the "2020 Present Los Angeles Crime Data".
+- Design the database schema to efficiently store attributes like DR_NO, Date Reported, Victim details, Location details, etc.
+- Implement efficient querying mechanisms to support the application's analysis features, such as Demographic Analysis and Analysis of Crime Severity and Impact.
+- Ensure data integrity, backups, and recovery mechanisms are in place.
+
+**Jiawei: Other Backend**
+
+- Implement the logic for predictive analysis, utilizing historical data to forecast potential criminal trends.
+- Develop the crime prevention suggestion system, which provides location-based alerts and recommendations to users.
+- Handle the community participation and collaboration feature, facilitating forums or community committees within the application.
+- Collaborate with Tiansu on database interactions and with Haobai on server-side operations to ensure seamless integration and functionality.
