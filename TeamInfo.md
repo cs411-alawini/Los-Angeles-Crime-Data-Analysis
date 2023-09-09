@@ -19,7 +19,7 @@
 
 |   Info      |        Description     |
 | ----------- | ---------------------- |
-|  Title      |       ProjectTitle     |
+|  Title      |     **Los Angeles Crime Insight**: Visualization and Analysis Crime in Los Angeles     |
 | System URL  |      link_to_system    |
 | Video Link  |      link_to_video     |
 
