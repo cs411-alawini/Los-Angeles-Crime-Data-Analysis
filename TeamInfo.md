@@ -25,4 +25,4 @@
 
 ## Project Summary
 
-This is a summary of the project!
+LA Crime Insights is a web-based application designed to provide a comprehensive overview of crime in Los Angeles since 2020. By utilizing detailed crime data, the platform provides users with insights on crime trends, population impact, and predictive analysis. This application has various functions, from demographic analysis to crime prediction, providing residents with the knowledge and resources they need to safely drive the city.
