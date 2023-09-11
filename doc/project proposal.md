@@ -35,8 +35,17 @@ Future Development Plan:
 - The foundation of "Los Angeles Crime Insight" is a real and comprehensive dataset called "[2020 Present Los Angeles Crime Data](https://www.kaggle.com/datasets/susant4learning/crime-in-los-angeles-data-from-2020-to-present?resource=download&select=Crime_Data_from_2020_to_Present.csv)". This dataset provides a panoramic view of reported crimes across Los Angeles, including details of events, victims, and geographical nuances. By relying on this dataset, our platform ensures that all insights, analyses, and predictions are rooted in real-world events and patterns. This commitment to authenticity ensures that our users receive accurate and timely information, making our platform a reliable source of insights related to crime in Los Angeles.
 
 ## 9. User Interface
+**Crime data page**
+![Local Image](page1.png)
 
+**Demographic Analysis Page**
+![Local Image](page2.png)
 
+**Crime Severity and Impact Page**
+![Local Image](page3.png)
+
+**Feedback and Report Page**
+![Local Image](page4.png)
 
 ## 10. Work Distribution
 
