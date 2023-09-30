@@ -1,6 +1,6 @@
 ## UML Diagram
 
-<img src="C:\Users\96103\AppData\Roaming\Typora\typora-user-images\image-20230930105100430.png" alt="image-20230930105100430" style="zoom: 67%;" />
+<img src="./fig/UML.png" style="zoom: 75%;" />
 
 ## Assumption
 
