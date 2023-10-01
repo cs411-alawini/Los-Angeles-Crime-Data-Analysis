@@ -79,6 +79,16 @@ The CrimeType, Weapon, Premise, and Victim tables have primary keys that functio
 
 The Record table's primary key RecordId determines all other attributes. Thus, this table is also in BCNF.
 
+## Why BCNF?
+
+BCNF (Boyce Codd Normal Form) enforces that whenever there is a nontrivial FD, its left side must be a superkey, so BCNF:\
+&nbsp;&nbsp;&nbsp;&nbsp;(1) removes all redundancies based on FDs.\
+&nbsp;&nbsp;&nbsp;&nbsp;(2) avoids information loss. The origianl relation instance can be reconstructed from the decomposed relations' instances.
+
+We choose BCNF instead of 3NF because:\
+&nbsp;&nbsp;&nbsp;&nbsp;(1) BCNF is a more restricted and stronger form of normalization. BCNF removes the second condition of 3NF, which is if the right hand side of a FD is part of a key, it is not necessary that the left hand side is a superkey.\
+&nbsp;&nbsp;&nbsp;&nbsp;(2) The drawback of BCNF compared to 3NF is that BCNF may not preserve dependencies. However, in our case, converting the schema to BCNF doesn't incur this problem.
+
 ## Relational Schema
 
 Table-User(\
