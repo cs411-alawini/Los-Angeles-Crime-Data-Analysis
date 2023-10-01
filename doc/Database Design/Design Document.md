@@ -25,7 +25,6 @@ We assume that:
 + crime type: Each crime Record includes at most 1 CrimeType, while each CrimeType may happen in any number of crime Records.
 + affect: Each crime Record affects exactly 1 Victim, while each Victim gets involved in exactly 1 Record.
 
-
 ## Cardinality
 
 + `User` to `Record` : one-to-many (One user reports many records)
@@ -34,55 +33,7 @@ We assume that:
 + `Weapon` to `Record` : one-to-many (One weapon can appear in many records)
 + `Premise` to `Record` : one-to-many (One premise can appear in many records)
 + `Crime Type` to `Record` : one-to-many (One crime type can appear in many records)
-
-## Relational Schema
-
-Table-PoliceStation(
-StationId: INT [PK],
-Division: VARCHAR(100),
-Location: VARCHAR(200),
-Latitude: DECIMAL(7,4),
-Longitude: DECIMAL(7,4)
-)
-
-Table-District(
-DistrictId: INT [PK],
-Name: VARCHAR(100),
-Bureau: VARCHAR(100),
-StationId: INT [FK to PoliceStation.StationId]
-)
-
-Table-Weapon(
-WeaponId: INT [PK],
-WeaponDesc: VARCHAR(200)
-)
-
-Table-Premise(
-PremiseId: INT [PK],
-PremiseDesc: VARCHAR(200)
-)
-
-Table-Victim(
-VictimId: INT [PK],
-Age: INT,
-Sex: CHAR(1),
-Descent: CHAR(1)
-)
-
-Table-Record(
-RecordId: INT [PK],
-DateRptd: DATE,
-DateOcc: DATE,
-TimeOcc: TIME,
-Location: VARCHAR(200),
-Latitude: DECIMAL(7,4),
-Longitude: DECIMAL(7,4),
-DistrictId: INT [FK to District.DistrictId],
-CrimeTypeId: INT [FK to CrimeType.CrimeTypeId],
-PremiseId: INT [FK to Premise.PremiseId],
-WeaponId: INT [FK to Weapon.WeaponId],
-VictimId: INT [FK to Victim.VictimId]
-)
++ `Record` to `Victim` : one-to-one (one record has one victim)
 
 ## Functional Dependencies
 `User_Table` : Username → Username, password, Record_Table.RecordId
@@ -101,7 +52,6 @@ VictimId: INT [FK to Victim.VictimId]
 
 `Victim_Table` : VictimId → VictimId, Age, Sex, Descent
 
-
 ## BCNF
 
 For the PoliceStation table, the primary key StationId functionally determines all other attributes. This is already in BCNF.
@@ -109,5 +59,59 @@ For the PoliceStation table, the primary key StationId functionally determines a
 For the District table, the primary key DistrictId functionally determines all other attributes. This is already in BCNF.
 
 The CrimeType, Weapon, Premise, and Victim tables have primary keys that functionally determine all other attributes in their respective tables, placing them in BCNF.
+
+## Relational Schema
+Table-User(\
+&nbsp;&nbsp;&nbsp;&nbsp;Username : VARCHAR(200) [ PK ],\
+&nbsp;&nbsp;&nbsp;&nbsp;Password : VARCHAR(200),\
+&nbsp;&nbsp;&nbsp;&nbsp;RecordId : INT [ FK to Record.RecordId ]\
+}
+
+Table-Record(\
+&nbsp;&nbsp;&nbsp;&nbsp;RecordId: INT [ PK ],\
+&nbsp;&nbsp;&nbsp;&nbsp;DateRptd: DATE,\
+&nbsp;&nbsp;&nbsp;&nbsp;DateOcc: DATE,\
+&nbsp;&nbsp;&nbsp;&nbsp;TimeOcc: TIME,\
+&nbsp;&nbsp;&nbsp;&nbsp;Location: VARCHAR(200),\
+&nbsp;&nbsp;&nbsp;&nbsp;Latitude: DECIMAL(7,4),\
+&nbsp;&nbsp;&nbsp;&nbsp;Longitude: DECIMAL(7,4),\
+&nbsp;&nbsp;&nbsp;&nbsp;DistrictId: INT [ FK to District.DistrictId ],\
+&nbsp;&nbsp;&nbsp;&nbsp;CrimeTypeId: INT [ FK to CrimeType.CrimeTypeId ],\
+&nbsp;&nbsp;&nbsp;&nbsp;PremiseId: INT [ FK to Premise.PremiseId ],\
+&nbsp;&nbsp;&nbsp;&nbsp;WeaponId: INT [ FK to Weapon.WeaponId ],\
+&nbsp;&nbsp;&nbsp;&nbsp;VictimId: INT [ FK to Victim.VictimId ]\
+)
+
+Table-PoliceStation(\
+&nbsp;&nbsp;&nbsp;&nbsp;StationId: INT [ PK] ,\
+&nbsp;&nbsp;&nbsp;&nbsp;Division: VARCHAR(100),\
+&nbsp;&nbsp;&nbsp;&nbsp;Location: VARCHAR(200),\
+&nbsp;&nbsp;&nbsp;&nbsp;Latitude: DECIMAL(7,4),\
+&nbsp;&nbsp;&nbsp;&nbsp;Longitude: DECIMAL(7,4)\
+)
+
+Table-District(\
+&nbsp;&nbsp;&nbsp;&nbsp;DistrictId: INT [ PK ],\
+&nbsp;&nbsp;&nbsp;&nbsp;Name: VARCHAR(100),\
+&nbsp;&nbsp;&nbsp;&nbsp;Bureau: VARCHAR(100),\
+&nbsp;&nbsp;&nbsp;&nbsp;StationId: INT [ FK to PoliceStation.StationId ]\
+)
+
+Table-Weapon(\
+&nbsp;&nbsp;&nbsp;&nbsp;WeaponId: INT [ PK ],\
+&nbsp;&nbsp;&nbsp;&nbsp;WeaponDesc: VARCHAR(200)\
+)
+
+Table-Premise(\
+&nbsp;&nbsp;&nbsp;&nbsp;PremiseId: INT [ PK ],\
+&nbsp;&nbsp;&nbsp;&nbsp;PremiseDesc: VARCHAR(200)\
+)
+
+Table-Victim(\
+&nbsp;&nbsp;&nbsp;&nbsp;VictimId: INT [ PK ],\
+&nbsp;&nbsp;&nbsp;&nbsp;Age: INT,\
+&nbsp;&nbsp;&nbsp;&nbsp;Sex: CHAR(1),\
+&nbsp;&nbsp;&nbsp;&nbsp;Descent: CHAR(1)\
+)
 
 The Record table's primary key RecordId determines all other attributes. Thus, this table is also in BCNF.
