@@ -108,7 +108,12 @@ Record Table
 
 RecordId→DateRptd, DateOcc, TimeOcc, Location, Latitude, Longitude, DistrictId, CrimeTypeId, PremiseId, WeaponId, VictimId
 
+## BCNF
+
 For the PoliceStation table, the primary key StationId functionally determines all other attributes. This is already in BCNF.
+
 For the District table, the primary key DistrictId functionally determines all other attributes. This is already in BCNF.
+
 The CrimeType, Weapon, Premise, and Victim tables have primary keys that functionally determine all other attributes in their respective tables, placing them in BCNF.
+
 The Record table's primary key RecordId determines all other attributes. Thus, this table is also in BCNF.
