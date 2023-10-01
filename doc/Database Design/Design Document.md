@@ -36,21 +36,21 @@ We assume that:
 + `Record` to `Victim` : one-to-one (one record has one victim)
 
 ## Functional Dependencies
-`User_Table` : Username → Username, password, Record_Table.RecordId
+`User_Table` : Username → Password, Record_Table.RecordId
 
-`Record_Table` : RecordId → RecordId, DateRptd, DateOcc, TimeOcc, Location, Latitude, Longitude, District_Table.DistrictId, CrimeType_Table.CrimeTypeId, Premise_Table.PremiseId, Weapon_Table.WeaponId, Victim_Table.VictimId
+`Record_Table` : RecordId → DateRptd, DateOcc, TimeOcc, Location, Latitude, Longitude, District_Table.DistrictId, CrimeType_Table.CrimeTypeId, Premise_Table.PremiseId, Weapon_Table.WeaponId, Victim_Table.VictimId
 
-`PoliceStation_Table` : StationId → StationId, Division, Location, Latitude, Longitude
+`PoliceStation_Table` : StationId → Division, Location, Latitude, Longitude
 
-`District_Table` : DistrictId → DistrictId, Name, Bureau, PoliceStation_Table.StationId
+`District_Table` : DistrictId → Name, Bureau, PoliceStation_Table.StationId
 
-`CrimeType_Table` : CrimeTypeId → CrimeTypeId, CrimeTypeDesc, Part
+`CrimeType_Table` : CrimeTypeId → CrimeTypeDesc, Part
 
-`Weapon_Table` : WeaponId → WeaponId, WeaponDesc
+`Weapon_Table` : WeaponId → WeaponDesc
 
-`Premise_Table` : PremiseId → PremiseId, PremiseDesc
+`Premise_Table` : PremiseId → PremiseDesc
 
-`Victim_Table` : VictimId → VictimId, Age, Sex, Descent
+`Victim_Table` : VictimId → Age, Sex, Descent
 
 ## BCNF
 
@@ -60,7 +60,26 @@ For the District table, the primary key DistrictId functionally determines all o
 
 The CrimeType, Weapon, Premise, and Victim tables have primary keys that functionally determine all other attributes in their respective tables, placing them in BCNF.
 
+The Record table's primary key RecordId determines all other attributes. Thus, this table is also in BCNF.
+
 ## Relational Schema
+User( <ins>Username</ins>, Password, Record.RecordId )
+
+Record( <ins>RecordId</ins>, DateRptd, DateOcc, TimeOcc, Location, Latitude, Longitude, District.DistrictId, CrimeType.CrimeTypeId, Premise.PremiseId, Weapon.WeaponId, Victim.VictimId )
+
+PoliceStation( <ins>StationId</ins>, Division, Location, Latitude, Longitude )
+
+District( <ins>DistrictId</ins>, Name, Bureau, PoliceStation.StationId )
+
+CrimeType( <ins>CrimeTypeId</ins>, CrimeTypeDesc, Part )
+
+Weapon( <ins>WeaponId</ins>, WeaponDesc )
+
+Premise( <ins>PremiseId</ins>, PremiseDesc )
+
+Victim( <ins>VictimId</ins>, Age, Sex, Descent )
+
+## Tables
 Table-User(\
 &nbsp;&nbsp;&nbsp;&nbsp;Username : VARCHAR(200) [ PK ],\
 &nbsp;&nbsp;&nbsp;&nbsp;Password : VARCHAR(200),\
@@ -97,6 +116,12 @@ Table-District(\
 &nbsp;&nbsp;&nbsp;&nbsp;StationId: INT [ FK to PoliceStation.StationId ]\
 )
 
+Table-CrimeType(\
+&nbsp;&nbsp;&nbsp;&nbsp;CrimeTypeId: INT [ PK ],\
+&nbsp;&nbsp;&nbsp;&nbsp;CrimeTypeDesc: VARCHAR(100),\
+&nbsp;&nbsp;&nbsp;&nbsp;Part: CHAR(1)\
+)
+
 Table-Weapon(\
 &nbsp;&nbsp;&nbsp;&nbsp;WeaponId: INT [ PK ],\
 &nbsp;&nbsp;&nbsp;&nbsp;WeaponDesc: VARCHAR(200)\
@@ -113,5 +138,3 @@ Table-Victim(\
 &nbsp;&nbsp;&nbsp;&nbsp;Sex: CHAR(1),\
 &nbsp;&nbsp;&nbsp;&nbsp;Descent: CHAR(1)\
 )
-
-The Record table's primary key RecordId determines all other attributes. Thus, this table is also in BCNF.
