@@ -27,7 +27,6 @@ We assume that:
 ## Relational Schema
 
 Table-PoliceStation(
-
 StationId: INT [PK],
 Division: VARCHAR(100),
 Location: VARCHAR(200),
@@ -78,3 +77,38 @@ PremiseId: INT [FK to Premise.PremiseId],
 WeaponId: INT [FK to Weapon.WeaponId],
 VictimId: INT [FK to Victim.VictimId]
 )
+
+## Functional Dependencies
+
+PoliceStation Table
+
+StationId→Division, Location, Latitude, Longitude
+
+District Table
+
+DistrictId→Name, Bureau, StationId
+
+CrimeType Table
+
+CrimeTypeId→CrimeTypeDesc, Part
+
+Weapon Table
+
+WeaponId→WeaponDesc
+
+Premise Table
+
+PremiseId→PremiseDesc
+
+Victim Table
+
+VictimId→Age, Sex, Descent
+
+Record Table
+
+RecordId→DateRptd, DateOcc, TimeOcc, Location, Latitude, Longitude, DistrictId, CrimeTypeId, PremiseId, WeaponId, VictimId
+
+For the PoliceStation table, the primary key StationId functionally determines all other attributes. This is already in BCNF.
+For the District table, the primary key DistrictId functionally determines all other attributes. This is already in BCNF.
+The CrimeType, Weapon, Premise, and Victim tables have primary keys that functionally determine all other attributes in their respective tables, placing them in BCNF.
+The Record table's primary key RecordId determines all other attributes. Thus, this table is also in BCNF.
