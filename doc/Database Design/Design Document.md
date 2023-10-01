@@ -71,13 +71,7 @@ Victim( <ins>VictimId</ins>, Age, Sex, Descent )
 
 <br>
 
-For the PoliceStation table, the primary key StationId functionally determines all other attributes. This is already in BCNF.
-
-For the District table, the primary key DistrictId functionally determines all other attributes. This is already in BCNF.
-
-The CrimeType, Weapon, Premise, and Victim tables have primary keys that functionally determine all other attributes in their respective tables, placing them in BCNF.
-
-The Record table's primary key RecordId determines all other attributes. Thus, this table is also in BCNF.
+For each table, the underlined attribute is the super key for the corresponding table and the relations of the tables could be write in the form of A->BC.. where A is the super key. Therefore, the tables are already in BCNF and 3NF form.
 
 ## Why BCNF?
 
