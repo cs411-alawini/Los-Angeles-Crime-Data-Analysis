@@ -27,6 +27,7 @@ We assume that:
 ## Relational Schema
 
 Table-PoliceStation(
+
 StationId: INT [PK],
 Division: VARCHAR(100),
 Location: VARCHAR(200),
