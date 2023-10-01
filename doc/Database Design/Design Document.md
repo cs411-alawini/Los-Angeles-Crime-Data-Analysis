@@ -85,34 +85,22 @@ VictimId: INT [FK to Victim.VictimId]
 )
 
 ## Functional Dependencies
+`User_Table` : Username → Username, password, Record_Table.RecordId
 
-PoliceStation Table
+`Record_Table` : RecordId → RecordId, DateRptd, DateOcc, TimeOcc, Location, Latitude, Longitude, District_Table.DistrictId, CrimeType_Table.CrimeTypeId, Premise_Table.PremiseId, Weapon_Table.WeaponId, Victim_Table.VictimId
 
-StationId→Division, Location, Latitude, Longitude
+`PoliceStation_Table` : StationId → StationId, Division, Location, Latitude, Longitude
 
-District Table
+`District_Table` : DistrictId → DistrictId, Name, Bureau, PoliceStation_Table.StationId
 
-DistrictId→Name, Bureau, StationId
+`CrimeType_Table` : CrimeTypeId → CrimeTypeId, CrimeTypeDesc, Part
 
-CrimeType Table
+`Weapon_Table` : WeaponId → WeaponId, WeaponDesc
 
-CrimeTypeId→CrimeTypeDesc, Part
+`Premise_Table` : PremiseId → PremiseId, PremiseDesc
 
-Weapon Table
+`Victim_Table` : VictimId → VictimId, Age, Sex, Descent
 
-WeaponId→WeaponDesc
-
-Premise Table
-
-PremiseId→PremiseDesc
-
-Victim Table
-
-VictimId→Age, Sex, Descent
-
-Record Table
-
-RecordId→DateRptd, DateOcc, TimeOcc, Location, Latitude, Longitude, DistrictId, CrimeTypeId, PremiseId, WeaponId, VictimId
 
 ## BCNF
 
