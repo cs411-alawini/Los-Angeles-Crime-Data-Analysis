@@ -12,7 +12,8 @@ We assume that:
 + Premise: The same Premise can appear in multiple Records.
 + Weapon: The same type of Weapon can be used in multiple crime Records.
 + User: Each user can provide any number of crime Records.
-+ Record: For each crime Record, it includes exactly 1 District, at most 1 CrimeType, Premise and Weapon. It should be provided by exactly 1 user.
++ Victim: Each Victim gets involved in exactly 1 crime Records.
++ Record: For each crime Record, it includes exactly 1 District, exactly 1 Victim, at most 1 CrimeType, Premise and Weapon. It should be provided by exactly 1 user.
 
 ## Description
 
@@ -22,6 +23,7 @@ We assume that:
 + use: Each crime Record uses at most 1 Weapon, while each Weapon is used in any number of crime Records.
 + occur in: Each crime Record occurs in at most 1 Premise, while each Premise may get involved in any number of crime Records.
 + crime type: Each crime Record includes at most 1 CrimeType, while each CrimeType may happen in any number of crime Records.
++ affect: Each crime Record affects exactly 1 Victim, while each Victim gets involved in exactly 1 Record.
 
 
 ## Cardinality
