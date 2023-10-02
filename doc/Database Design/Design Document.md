@@ -38,7 +38,7 @@ We assume that:
 ## Functional Dependencies
 `User_Table` : Username → Password
 
-`Record_Table` : RecordId → DateRptd, DateOcc, TimeOcc, Location, Latitude, Longitude, District_Table.DistrictId, CrimeType_Table.CrimeTypeId, Premise_Table.PremiseId, Weapon_Table.WeaponId, User_Table.Username
+`Record_Table` : RecordId → DateRptd, DateOcc, TimeOcc, Location, Latitude, Longitude, District_Table.DistrictId, CrimeType_Table.CrimeTypeId, Premise_Table.PremiseId, Weapon_Table.WeaponId, Victim_Table.VictimId, User_Table.Username
 
 `PoliceStation_Table` : StationId → Division, Location, Latitude, Longitude
 
@@ -55,7 +55,7 @@ We assume that:
 ## Normalization
 User( <ins>Username</ins>, Password )
 
-Record( <ins>RecordId</ins>, DateRptd, DateOcc, TimeOcc, Location, Latitude, Longitude, District.DistrictId, CrimeType.CrimeTypeId, Premise.PremiseId, Weapon.WeaponId, User.Username )
+Record( <ins>RecordId</ins>, DateRptd, DateOcc, TimeOcc, Location, Latitude, Longitude, District.DistrictId, CrimeType.CrimeTypeId, Premise.PremiseId, Weapon.WeaponId, Victim.VictimId, User.Username )
 
 PoliceStation( <ins>StationId</ins>, Division, Location, Latitude, Longitude )
 
@@ -102,6 +102,7 @@ Table-Record(\
 &nbsp;&nbsp;&nbsp;&nbsp;CrimeTypeId: INT [ FK to CrimeType.CrimeTypeId ],\
 &nbsp;&nbsp;&nbsp;&nbsp;PremiseId: INT [ FK to Premise.PremiseId ],\
 &nbsp;&nbsp;&nbsp;&nbsp;WeaponId: INT [ FK to Weapon.WeaponId ],\
+&nbsp;&nbsp;&nbsp;&nbsp;VictimId : INT [ FK to Victim.VictimId unique ],\
 &nbsp;&nbsp;&nbsp;&nbsp;Username : INT [ FK to User.Username ]\
 )
 
@@ -137,7 +138,7 @@ Table-Premise(\
 )
 
 Table-Victim(\
-&nbsp;&nbsp;&nbsp;&nbsp;VictimId: INT [ PK,  FK to Record.RecordId ],\
+&nbsp;&nbsp;&nbsp;&nbsp;VictimId: INT [ PK ],\
 &nbsp;&nbsp;&nbsp;&nbsp;Age: INT,\
 &nbsp;&nbsp;&nbsp;&nbsp;Sex: CHAR(1),\
 &nbsp;&nbsp;&nbsp;&nbsp;Descent: CHAR(1)\
