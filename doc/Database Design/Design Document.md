@@ -36,9 +36,9 @@ We assume that:
 + `Record` to `Victim` : one-to-one (one record has one victim)
 
 ## Functional Dependencies
-`User_Table` : Username → Password, Record_Table.RecordId
+`User_Table` : Username → Password
 
-`Record_Table` : RecordId → DateRptd, DateOcc, TimeOcc, Location, Latitude, Longitude, District_Table.DistrictId, CrimeType_Table.CrimeTypeId, Premise_Table.PremiseId, Weapon_Table.WeaponId
+`Record_Table` : RecordId → DateRptd, DateOcc, TimeOcc, Location, Latitude, Longitude, District_Table.DistrictId, CrimeType_Table.CrimeTypeId, Premise_Table.PremiseId, Weapon_Table.WeaponId, User_Table.Username
 
 `PoliceStation_Table` : StationId → Division, Location, Latitude, Longitude
 
@@ -53,9 +53,9 @@ We assume that:
 `Victim_Table` : VictimId → Age, Sex, Descent
 
 ## Normalization
-User( <ins>Username</ins>, Password, Record.RecordId )
+User( <ins>Username</ins>, Password )
 
-Record( <ins>RecordId</ins>, DateRptd, DateOcc, TimeOcc, Location, Latitude, Longitude, District.DistrictId, CrimeType.CrimeTypeId, Premise.PremiseId, Weapon.WeaponId)
+Record( <ins>RecordId</ins>, DateRptd, DateOcc, TimeOcc, Location, Latitude, Longitude, District.DistrictId, CrimeType.CrimeTypeId, Premise.PremiseId, Weapon.WeaponId, User.Username )
 
 PoliceStation( <ins>StationId</ins>, Division, Location, Latitude, Longitude )
 
@@ -87,8 +87,7 @@ We choose BCNF instead of 3NF because:\
 
 Table-User(\
 &nbsp;&nbsp;&nbsp;&nbsp;Username : VARCHAR(200) [ PK ],\
-&nbsp;&nbsp;&nbsp;&nbsp;Password : VARCHAR(200),\
-&nbsp;&nbsp;&nbsp;&nbsp;RecordId : INT [ FK to Record.RecordId ]\
+&nbsp;&nbsp;&nbsp;&nbsp;Password : VARCHAR(200)\
 }
 
 Table-Record(\
@@ -102,11 +101,12 @@ Table-Record(\
 &nbsp;&nbsp;&nbsp;&nbsp;DistrictId: INT [ FK to District.DistrictId ],\
 &nbsp;&nbsp;&nbsp;&nbsp;CrimeTypeId: INT [ FK to CrimeType.CrimeTypeId ],\
 &nbsp;&nbsp;&nbsp;&nbsp;PremiseId: INT [ FK to Premise.PremiseId ],\
-&nbsp;&nbsp;&nbsp;&nbsp;WeaponId: INT [ FK to Weapon.WeaponId ]\
+&nbsp;&nbsp;&nbsp;&nbsp;WeaponId: INT [ FK to Weapon.WeaponId ],\
+&nbsp;&nbsp;&nbsp;&nbsp;Username : INT [ FK to User.Username ]\
 )
 
 Table-PoliceStation(\
-&nbsp;&nbsp;&nbsp;&nbsp;StationId: INT [ PK] ,\
+&nbsp;&nbsp;&nbsp;&nbsp;StationId: INT [ PK ] ,\
 &nbsp;&nbsp;&nbsp;&nbsp;Division: VARCHAR(100),\
 &nbsp;&nbsp;&nbsp;&nbsp;Location: VARCHAR(200),\
 &nbsp;&nbsp;&nbsp;&nbsp;Latitude: DECIMAL(7,4),\
@@ -137,7 +137,7 @@ Table-Premise(\
 )
 
 Table-Victim(\
-&nbsp;&nbsp;&nbsp;&nbsp;VictimId: INT [ PK FK ],\
+&nbsp;&nbsp;&nbsp;&nbsp;VictimId: INT [ PK,  FK to Record.RecordId ],\
 &nbsp;&nbsp;&nbsp;&nbsp;Age: INT,\
 &nbsp;&nbsp;&nbsp;&nbsp;Sex: CHAR(1),\
 &nbsp;&nbsp;&nbsp;&nbsp;Descent: CHAR(1)\
