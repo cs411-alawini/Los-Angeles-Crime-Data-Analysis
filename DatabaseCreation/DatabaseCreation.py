@@ -25,7 +25,7 @@ for table in tables:
     cursor.execute(f"DROP TABLE {table_name}")
     print(f"    {table_name}")
 
-cursor.execute("CREATE TABLE test(var1 INT PRIMARY KEY)")
+
 
 # Finally, close the connection
 if db.is_connected():
