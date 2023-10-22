@@ -16,9 +16,12 @@ except mysql.connector.Error as e:
 # want to build the database from scratch, so first remove all tables
 cursor.execute("SHOW TABLES")
 tables = cursor.fetchall()
+# without this line, can't drop a referenced table
+cursor.execute("SET FOREIGN_KEY_CHECKS = 0;")
 for table in tables:
     table_name = table[0]
     cursor.execute(f"DROP TABLE {table_name}")
+cursor.execute("SET FOREIGN_KEY_CHECKS = 1;")
 if tables:
     print("Existing tables dropped")
 else:
