@@ -30,7 +30,7 @@ else:
 # create tables as in the UML diagram
 cursor.execute("""
     CREATE TABLE PoliceStation (
-        StationId INT AUTO_INCREMENT PRIMARY KEY,
+        StationId INT PRIMARY KEY,
         Division VARCHAR(50),
         Location VARCHAR(50),
         Latitude DECIMAL(7, 4),
@@ -40,7 +40,7 @@ cursor.execute("""
 
 cursor.execute("""
     CREATE TABLE District (
-        DistrictId INT AUTO_INCREMENT PRIMARY KEY,
+        DistrictId INT PRIMARY KEY,
         Name VARCHAR(50),
         Bureau VARCHAR(50),
         StationId INT,
@@ -52,7 +52,7 @@ cursor.execute("""
 
 cursor.execute("""
     CREATE TABLE CrimeType (
-        CrimeTypeId INT AUTO_INCREMENT PRIMARY KEY,
+        CrimeTypeId INT PRIMARY KEY,
         CrimeTypeDesc VARCHAR(50),
         Part CHAR(1)
     );
@@ -60,21 +60,21 @@ cursor.execute("""
 
 cursor.execute("""
     CREATE TABLE Premise (
-        PremiseId INT AUTO_INCREMENT PRIMARY KEY,
+        PremiseId INT PRIMARY KEY,
         PremiseDesc VARCHAR(50)
     );
 """)
 
 cursor.execute("""
     CREATE TABLE Weapon (
-        WeaponId INT AUTO_INCREMENT PRIMARY KEY,
+        WeaponId INT PRIMARY KEY,
         WeaponDesc VARCHAR(50)
     );
 """)
 
 cursor.execute("""
     CREATE TABLE Victim (
-        VictimId INT AUTO_INCREMENT PRIMARY KEY,
+        VictimId INT PRIMARY KEY,
         Age INT,
         Sex CHAR(1),
         Descent CHAR(1)
@@ -90,7 +90,7 @@ cursor.execute("""
 
 cursor.execute("""
     CREATE TABLE Record (
-        RecordId INT AUTO_INCREMENT PRIMARY KEY,
+        RecordId INT PRIMARY KEY,
         DateRptd DATE,
         DateOcc DATE,
         TimeOcc TIME,
