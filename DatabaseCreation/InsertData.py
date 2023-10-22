@@ -14,12 +14,36 @@ try:
 except mysql.connector.Error as e:
     print(f"Error: {e}")
 
-file = "Crime_Data_from_2020_to_Present.csv"
-# see what the data looks like
+# insert data to the table PoliceStation
+file = "LAPD_Police_Stations.csv"
 data = pd.read_csv(file)
-first_row = data.iloc[0]
-for key in first_row.keys():
-    print(f"{key}: {first_row[key]} ({type(first_row[key])})")
+for i in range(len(data)):
+    row = data.iloc[i]
+    StationId = row["PREC"]
+    Division = row["DIVISION"]
+    Location = row["LOCATION"]
+    Latitude = round(row["Y"], 4)
+    Longitude = round(row["X"], 4)
+    cursor.execute(f"""
+        INSERT INTO PoliceStation
+        VALUES ({StationId}, '{Division}', '{Location}', {Latitude}, {Longitude});
+    """)
+db.commit()
+
+# insert data to the table District
+file = "LAPD_Reporting_District.csv"
+data = pd.read_csv(file)
+for i in range(len(data)):
+    row = data.iloc[i]
+    DistrictId = row["NAME"]
+    Name = row["NAME"]
+    Bureau = row["BUREAU"]
+    StationId = row["PREC"]
+    cursor.execute(f"""
+        INSERT INTO District
+        VALUES ({DistrictId}, {Name}, '{Bureau}', {StationId});
+    """)
+db.commit()
 
 # Finally, close the connection
 if db.is_connected():
