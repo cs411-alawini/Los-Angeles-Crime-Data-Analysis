@@ -16,16 +16,108 @@ except mysql.connector.Error as e:
 # want to build the database from scratch, so first remove all tables
 cursor.execute("SHOW TABLES")
 tables = cursor.fetchall()
-if tables:
-    print("Drop existing tables:")
-else:
-    print("No existing table")
 for table in tables:
     table_name = table[0]
     cursor.execute(f"DROP TABLE {table_name}")
-    print(f"    {table_name}")
+if tables:
+    print("Existing tables dropped")
+else:
+    print("No existing table")
 
+# create tables as in the UML diagram
+cursor.execute("""
+    CREATE TABLE PoliceStation (
+        StationId INT AUTO_INCREMENT PRIMARY KEY,
+        Division VARCHAR(50),
+        Location VARCHAR(50),
+        Latitude DECIMAL(7, 4),
+        Longitude DECIMAL(7, 4)
+    );
+""")
 
+cursor.execute("""
+    CREATE TABLE District (
+        DistrictId INT AUTO_INCREMENT PRIMARY KEY,
+        Name VARCHAR(50),
+        Bureau VARCHAR(50),
+        StationId INT,
+        FOREIGN KEY (StationId) REFERENCES PoliceStation(StationId)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE
+    );
+""")
+
+cursor.execute("""
+    CREATE TABLE CrimeType (
+        CrimeTypeId INT AUTO_INCREMENT PRIMARY KEY,
+        CrimeTypeDesc VARCHAR(50),
+        Part CHAR(1)
+    );
+""")
+
+cursor.execute("""
+    CREATE TABLE Premise (
+        PremiseId INT AUTO_INCREMENT PRIMARY KEY,
+        PremiseDesc VARCHAR(50)
+    );
+""")
+
+cursor.execute("""
+    CREATE TABLE Weapon (
+        WeaponId INT AUTO_INCREMENT PRIMARY KEY,
+        WeaponDesc VARCHAR(50)
+    );
+""")
+
+cursor.execute("""
+    CREATE TABLE Victim (
+        VictimId INT AUTO_INCREMENT PRIMARY KEY,
+        Age INT,
+        Sex CHAR(1),
+        Descent CHAR(1)
+    );
+""")
+
+cursor.execute("""
+    CREATE TABLE User (
+        UserName VARCHAR(50) PRIMARY KEY,
+        Password VARCHAR(50)
+    );
+""")
+
+cursor.execute("""
+    CREATE TABLE Record (
+        RecordId INT AUTO_INCREMENT PRIMARY KEY,
+        DateRptd DATE,
+        DateOcc DATE,
+        TimeOcc TIME,
+        Location VARCHAR(50),
+        Latitude DECIMAL(7, 4),
+        Longitude DECIMAL(7, 4),
+        DistrictId INT,
+        FOREIGN KEY (DistrictId) REFERENCES District(DistrictId)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE,
+        CrimeTypeId INT,
+        FOREIGN KEY (CrimeTypeId) REFERENCES CrimeType(CrimeTypeId)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE,
+        PremiseId INT,
+        FOREIGN KEY (PremiseId) REFERENCES Premise(PremiseId)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE,
+        WeaponId INT,
+        FOREIGN KEY (WeaponId) REFERENCES Weapon(WeaponId)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE,
+        UserName VARCHAR(50),
+        FOREIGN KEY (UserName) REFERENCES User(UserName)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE
+    );
+""")
+
+print("Tables created")
 
 # Finally, close the connection
 if db.is_connected():
