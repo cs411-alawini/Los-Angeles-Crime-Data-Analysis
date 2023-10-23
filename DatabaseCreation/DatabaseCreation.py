@@ -31,8 +31,8 @@ else:
 cursor.execute("""
     CREATE TABLE PoliceStation (
         StationId INT PRIMARY KEY,
-        Division VARCHAR(50),
-        Location VARCHAR(50),
+        Division VARCHAR(100),
+        Location VARCHAR(100),
         Latitude DECIMAL(7, 4),
         Longitude DECIMAL(7, 4)
     );
@@ -41,8 +41,8 @@ cursor.execute("""
 cursor.execute("""
     CREATE TABLE District (
         DistrictId INT PRIMARY KEY,
-        Name VARCHAR(50),
-        Bureau VARCHAR(50),
+        Name VARCHAR(100),
+        Bureau VARCHAR(100),
         StationId INT,
         FOREIGN KEY (StationId) REFERENCES PoliceStation(StationId)
             ON DELETE CASCADE
@@ -53,7 +53,7 @@ cursor.execute("""
 cursor.execute("""
     CREATE TABLE CrimeType (
         CrimeTypeId INT PRIMARY KEY,
-        CrimeTypeDesc VARCHAR(50),
+        CrimeTypeDesc VARCHAR(100),
         Part CHAR(1)
     );
 """)
@@ -61,14 +61,14 @@ cursor.execute("""
 cursor.execute("""
     CREATE TABLE Premise (
         PremiseId INT PRIMARY KEY,
-        PremiseDesc VARCHAR(50)
+        PremiseDesc VARCHAR(100)
     );
 """)
 
 cursor.execute("""
     CREATE TABLE Weapon (
         WeaponId INT PRIMARY KEY,
-        WeaponDesc VARCHAR(50)
+        WeaponDesc VARCHAR(100)
     );
 """)
 
@@ -83,8 +83,8 @@ cursor.execute("""
 
 cursor.execute("""
     CREATE TABLE User (
-        UserName VARCHAR(50) PRIMARY KEY,
-        Password VARCHAR(50)
+        UserName VARCHAR(100) PRIMARY KEY,
+        Password VARCHAR(100)
     );
 """)
 
@@ -113,7 +113,11 @@ cursor.execute("""
         FOREIGN KEY (WeaponId) REFERENCES Weapon(WeaponId)
             ON DELETE CASCADE
             ON UPDATE CASCADE,
-        UserName VARCHAR(50),
+        VictimId INT,
+        FOREIGN KEY (VictimId) REFERENCES Victim(VictimId)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE,
+        UserName VARCHAR(100),
         FOREIGN KEY (UserName) REFERENCES User(UserName)
             ON DELETE CASCADE
             ON UPDATE CASCADE
