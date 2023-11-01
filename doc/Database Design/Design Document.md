@@ -143,3 +143,13 @@ Table-Victim(\
 &nbsp;&nbsp;&nbsp;&nbsp;Sex: CHAR(1),\
 &nbsp;&nbsp;&nbsp;&nbsp;Descent: CHAR(1)\
 )
+
+## Data Definition Language (DDL) Commands
+
+CREATE TABLE PoliceStation (\
+&nbsp;&nbsp;&nbsp;&nbsp;StationId INT PRIMARY KEY,\
+&nbsp;&nbsp;&nbsp;&nbsp;Division VARCHAR(100),\
+&nbsp;&nbsp;&nbsp;&nbsp;Location VARCHAR(100),\
+&nbsp;&nbsp;&nbsp;&nbsp;Latitude DECIMAL(7, 4),\
+&nbsp;&nbsp;&nbsp;&nbsp;Longitude DECIMAL(7, 4)\
+);
