@@ -1,0 +1,47 @@
+.nav-container{
+    display: flex;
+    flex-direction: row;
+    height: 15vh;
+    min-height: 100px;
+    min-width: 960px;
+    background-color: #0969da;
+}
+
+.nav-logo-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 14%;
+}
+
+.nav-logo{
+    height: 75px;
+    width: 80px;
+    margin: 15px 5px;
+}
+
+.element-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 80%;
+}
+
+.nav-element{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    width: 15vw;
+    background-color: whitesmoke;
+    border-radius: 20px;
+    height: 45%;
+    color:black
+}
+
+.fa-user{
+    color: #ffffff;
+    font-size: xx-large;
+    margin-right: 5px;
+}

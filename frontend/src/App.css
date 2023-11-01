@@ -1,0 +1,12 @@
+
+#root {
+  width: 100%;
+}
+
+.canvas-container{
+  height: 85vh;
+  min-height: 580px;
+  width: 85%;
+  min-width: 960px;
+  margin: auto;
+}
