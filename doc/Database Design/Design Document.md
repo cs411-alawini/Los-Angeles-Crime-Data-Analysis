@@ -291,4 +291,4 @@ LIMIT 15;
 <img src="./fig/query3ss.png" style="zoom: 30%;" />
 
 ## Indexing Analysis
-Details are in 
+Details are in [index analysis pdf](https://github.com/cs411-alawini/fa23-cs411-team037-Team37/blob/main/doc/DatabaseCreation/IndexAnalysis.pdf)
