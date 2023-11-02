@@ -1,4 +1,4 @@
-### Database Design
+# Database Design
 
 ## Database Connection Screenshots
 
