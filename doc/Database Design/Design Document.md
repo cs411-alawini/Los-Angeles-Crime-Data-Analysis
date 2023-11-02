@@ -241,12 +241,12 @@ We have inserted the real dataset into our database, so several tables' row coun
 ### Query 1
 This query provides a list of the top 15 police stations with the highest number of reported crimes, along with their respective locations and the total crime counts.
 
-SELECT P.StationId, P.Location, COUNT(*) AS TotalCrimes /
-FROM Los_Angeles_Crime_Data.Record R /
-JOIN Los_Angeles_Crime_Data.District D ON R.DistrictId = D.DistrictId /
-JOIN Los_Angeles_Crime_Data.PoliceStation P ON P.StationId = D.StationId /
-GROUP BY P.StationId, P.Location /
-ORDER BY TotalCrimes DESC /
+SELECT P.StationId, P.Location, COUNT(*) AS TotalCrimes \
+FROM Los_Angeles_Crime_Data.Record R \
+JOIN Los_Angeles_Crime_Data.District D ON R.DistrictId = D.DistrictId \
+JOIN Los_Angeles_Crime_Data.PoliceStation P ON P.StationId = D.StationId \
+GROUP BY P.StationId, P.Location \
+ORDER BY TotalCrimes DESC \
 LIMIT 15;
 
 <img src="./fig/query1ss.png" style="zoom: 30%;" />
@@ -254,14 +254,14 @@ LIMIT 15;
 ### Query 2 
 This query provides a list of the top 15 crime types that occurred in Los Angeles in 2020, ranked by their frequency, giving a clear picture of the most prevalent crimes in that year.
 
-SELECT YEAR(R.DateOcc) AS Year, /
-	   CT.CrimeTypeDesc, /
-       COUNT(*) AS TotalCrimes /
-FROM Los_Angeles_Crime_Data.Record R /
-JOIN Los_Angeles_Crime_Data.CrimeType CT ON R.CrimeTypeId = CT.CrimeTypeId /
-WHERE YEAR(R.DateOcc) = 2020 /
-GROUP BY YEAR(R.DateOcc), CT.CrimeTypeDesc /
-ORDER BY TotalCrimes DESC /
+SELECT YEAR(R.DateOcc) AS Year, \
+	   CT.CrimeTypeDesc, \
+       COUNT(*) AS TotalCrimes \
+FROM Los_Angeles_Crime_Data.Record R \
+JOIN Los_Angeles_Crime_Data.CrimeType CT ON R.CrimeTypeId = CT.CrimeTypeId \
+WHERE YEAR(R.DateOcc) = 2020 \
+GROUP BY YEAR(R.DateOcc), CT.CrimeTypeDesc \
+ORDER BY TotalCrimes DESC \
 LIMIT 15; 
 
 <img src="./fig/query2ss.png" style="zoom: 30%;" />
@@ -289,3 +289,6 @@ ORDER BY NumberOfCrimes DESC \
 LIMIT 15;
 
 <img src="./fig/query3ss.png" style="zoom: 30%;" />
+
+## Indexing Analysis
+Details are in 
