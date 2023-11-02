@@ -146,7 +146,7 @@ Table-Victim(\
 
 ## Database Connection Screenshots
 
-<img src="./fig/showDatabases.png" style="zoom: 50%;" /> <img src="./fig/showTables.png" style="zoom: 50%;" />
+<img src="./fig/showDatabases.png" style="zoom: 40%;" /> <img src="./fig/showTables.png" style="zoom: 40%;" />
 
 ## Data Definition Language (DDL) Commands
 
