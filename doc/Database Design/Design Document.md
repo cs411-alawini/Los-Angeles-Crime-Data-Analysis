@@ -146,7 +146,7 @@ Table-Victim(\
 
 ## Database Connection Screenshots
 
-<img src="./fig/showDatabases.png" style="zoom: 40%;" /> <img src="./fig/showTables.png" style="zoom: 40%;" />
+<img src="./fig/showDatabases.png" style="zoom: 30%;" /> <img src="./fig/showTables.png" style="zoom: 30%;" />
 
 ## Data Definition Language (DDL) Commands
 
@@ -229,3 +229,10 @@ CREATE TABLE Record (\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON DELETE CASCADE\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON UPDATE CASCADE\
 );
+
+## Table Row Counts
+
+We have inserted the real dataset into our database, so several tables' row count is <1000. However, averagely, the rows we inserted into each table are >>1000 (e.g. Record has 317804 rows).
+
+<img src="./fig/rowCount1.png" style="zoom: 30%;" />
+<img src="./fig/rowCount2.png" style="zoom: 30%;" />
