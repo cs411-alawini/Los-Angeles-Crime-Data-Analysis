@@ -144,6 +144,10 @@ Table-Victim(\
 &nbsp;&nbsp;&nbsp;&nbsp;Descent: CHAR(1)\
 )
 
+## Database Connection Screenshots
+
+<img src="./fig/showDatabases.png" style="zoom: 50%;" /> <img src="./fig/showTables.png" style="zoom: 50%;" />
+
 ## Data Definition Language (DDL) Commands
 
 CREATE TABLE PoliceStation (\
