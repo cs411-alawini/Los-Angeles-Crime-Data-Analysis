@@ -5,10 +5,11 @@
     flex-direction: row;
 }
 
+
 .crime-table-container {
     width: 60%;
     height: 85%;
-    min-width: 680px;
+    min-width: 720px;
     margin: auto;
     background-color: #6890F0;
 }
@@ -18,11 +19,15 @@
     height: 10%;
     margin: 1.5% 1%;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
+    padding-left: 8px;
 }
 
-
+.filter{
+    caret-color: transparent;
+    font-size: 17px;
+}
 
 #filter-location {
     width: 15%;
@@ -34,12 +39,15 @@
     cursor: pointer;
     background:none;
     font-size: x-large;
+    margin-left: 5px;
+    margin-right: 10px;
 }
 
 .crime-record-container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    border: none;
     border-bottom: solid black 2px;
     margin-top: 1%;
     width: 100%;
@@ -68,7 +76,7 @@
 
 .crime-record-box {
     background-color: white;
-    margin: 2% auto;
+    margin: 1.5% auto;
     width: 98%;
     height: 72%;
     max-height: 75%;
@@ -87,6 +95,7 @@
 
 .title {
     font-size: larger;
+    caret-color: transparent;
 }
 
 .record {

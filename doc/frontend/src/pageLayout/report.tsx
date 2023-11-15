@@ -1,10 +1,12 @@
+import { useState } from "react"
 
 function Report() {
     return (
-        <div className="canvas-container">
+        <div className="page3-container">
             Report
         </div>
     )
 }
 
 export default Report
+

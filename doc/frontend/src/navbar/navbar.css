@@ -1,8 +1,7 @@
 .nav-container{
     display: flex;
     flex-direction: row;
-    height: 15vh;
-    min-height: 100px;
+    height: 120px;
     min-width: 960px;
     background-color: #0969da;
 }
@@ -17,15 +16,16 @@
 .nav-logo{
     height: 75px;
     width: 80px;
-    margin: 15px 5px;
+    margin: 18px 5px;
 }
 
 .element-container{
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: flex-end;
     align-items: center;
     width: 80%;
+    caret-color: transparent;
 }
 
 .nav-element{
@@ -34,14 +34,17 @@
     justify-content: center;
     text-align: center;
     width: 15vw;
+    min-width: 180px;
     background-color: whitesmoke;
     border-radius: 20px;
     height: 45%;
+    margin-left: 50px;
     color:black
 }
 
 .fa-user{
     color: #ffffff;
     font-size: xx-large;
-    margin-right: 5px;
+    margin-right: 20px;
+    margin-left: 50px;
 }
