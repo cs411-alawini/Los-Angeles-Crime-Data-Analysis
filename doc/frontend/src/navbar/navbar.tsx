@@ -10,7 +10,6 @@ function NavBar() {
             <div className="element-container">
                 <NavLink className="nav-element" to="/" > Crime Data</NavLink>
                 <NavLink className="nav-element" to="/demographic_analysis" > Demographic Analysis</NavLink>
-                <NavLink className="nav-element" to="/report" > Report</NavLink>
                 <i className="fa-solid fa-user"></i>
             </div>
         </div>

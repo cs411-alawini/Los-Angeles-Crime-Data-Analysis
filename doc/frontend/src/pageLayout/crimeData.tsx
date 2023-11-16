@@ -4,6 +4,7 @@ import 'leaflet/dist/leaflet.css';
 import './crimeData.css'
 import Modal from "../modal/modal";
 import L from 'leaflet';
+import CrimeSelector from '../component/crimeSelector';
 function CrimeData() {
     var crimes = [{ cid: "103044679", time: "2230", location: "1101 W 39TH PL", crimeType: "BATTERY1 - SIMPLE ASSAULT", LL: [34.0141, -118.2978] },
     { cid: "103044681", time: "2231", location: "11002 W 391TH PL", crimeType: "BATTERY2 - SIMPLE ASSAULT", LL: [34.0459, -118.2545] },
@@ -15,13 +16,13 @@ function CrimeData() {
     { cid: "103044687", time: "2237", location: "11008 W 398TH PL", crimeType: "BATTERY8 - SIMPLE ASSAULT", LL: [34.0448, -118.2474] },
     { cid: "103044688", time: "2238", location: "11009 W 399TH PL", crimeType: "BATTERY9 - SIMPLE ASSAULT", LL: [34.0677, -118.2398] },
     { cid: "103044689", time: "2239", location: "11000 W 390TH PL", crimeType: "BATTERY0 - SIMPLE ASSAULT", LL: [33.9019, -118.2916] }];
-    const crimeTypeList = ["one", "two", "three", "four"];
+    
     const [startDate, setStartDate] = useState<Date>(new Date(Date.now()))
     const [endDate, setEndDate] = useState<Date>(new Date(Date.now()))
     const [location, setLocation] = useState<string>("")
-    const [crimeType, setCrimeType] = useState<string>(crimeTypeList[0])
     const [map, setMap] = useState<any>()
     const [crimeList, setCrimeList] = useState<any>(crimes)
+    const [crimeType, setCrimeType] = useState<string>("UNKNOW")
     const [open, setOpen] = useState<boolean>(false);
     const [update, setUpdate] = useState<boolean>(false);
     const [newCrime, setNewCrime] = useState<any>([])
@@ -86,14 +87,8 @@ function CrimeData() {
                     <input type="date" id="end-date" className='filter' onChange={(event) => { setEndDate(new Date(event.target.value)) }} value={endDate.toISOString().split('T')[0]} min={startDate.toISOString().split('T')[0]} max="2023-12-31" />
                     <label htmlFor="filter-location" className='filter'> Location : </label>
                     <input type="text" id="filter-location" className='filter' onChange={(event) => { setLocation(event.target.value) }} placeholder={"location"} />
-                    <label htmlFor="filter-crime-type" className='filter'> Crime type: </label>
-                    <select className='filter' onChange={(event) => setCrimeType(event.target.value)}>
-                        {
-                            crimeTypeList.map((crime, id) => {
-                                return <option key={id} value={crime}>{crime}</option>
-                            })
-                        }
-                    </select>
+                    
+                    <CrimeSelector setCrimeType={setCrimeType}/>
                     <button className='filter filter-search' onClick={() => fetchData(startDate, endDate, location, crimeType)}><i className="fa-solid fa-magnifying-glass"></i></button>
                 </div>
                 <div className='crime-title-container'>

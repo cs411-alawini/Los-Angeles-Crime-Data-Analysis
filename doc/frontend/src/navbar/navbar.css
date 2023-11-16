@@ -22,10 +22,11 @@
 .element-container{
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
-    width: 80%;
+    width: 50%;
     caret-color: transparent;
+    margin-left: 400px;
 }
 
 .nav-element{

@@ -1,4 +1,4 @@
-.bbbb{
+.bbbb {
     position: fixed;
     top: 0;
     left: 0;
@@ -9,8 +9,84 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    z-index: 9999;
 }
 
-.submit-report{
-    height: 100%;
+.submit-report {
+    position: absolute;
+    height: 30px;
+    width: 100px;
+    margin-top: 285px;
+    margin-left: 380px;
+    background-color: transparent;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.close-modal{
+    width: 50px;
+    height: 50px;
+    border-style: none;
+    background-color: transparent;
+    position: absolute;
+    margin-left: 420px;
+    cursor: pointer;
+}
+
+.modal-window {
+    background: white;
+    height: 300px;
+    width: 480px;
+    margin: auto;
+    padding: 2%;
+    border: 2px solid #000;
+    border-radius: 10px;
+    box-shadow: 2px solid black;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: -12px;
+}
+
+.modal-header h2{
+    margin-top: 10px;
+    font-size: 30px;
+}
+
+.fa-xmark{
+    font-size: 30px;
+}
+
+.modal-body{
+    height: 220px;
+    border: 2px solid #000;
+    margin-top: -15px;
+}
+
+.modal-body-line{
+    margin: 8px 8px;
+    display: flex;
+    flex-direction: row;
+
+}
+
+.modal-body-line .filter{
+    margin-right: 8px;
+}
+
+.modal-description{
+    display: flex;
+    flex-direction: column;
+}
+
+#modal-description{
+    height: 70px;
+    text-align:left;
+    float:top;
+    caret-color: #000;
 }
