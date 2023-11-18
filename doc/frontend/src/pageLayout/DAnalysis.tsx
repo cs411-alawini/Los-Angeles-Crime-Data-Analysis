@@ -10,45 +10,96 @@ const DAnalysis = () => {
 
   const data = [
     {
-      "name": "Page A",
-      "uv": 4000,
-      "pv": 2400
+      "name": "Central",
+      "count": 18810
     },
     {
-      "name": "Page B",
-      "uv": 3000,
-      "pv": 1398
+      "name": "Rampart",
+      "count": 14438
     },
     {
-      "name": "Page C",
-      "uv": 2000,
-      "pv": 9800
+      "name": "Southwest",
+      "count": 17568
     },
     {
-      "name": "Page D",
-      "uv": 2780,
-      "pv": 3908
+      "name": "Hollenbeck",
+      "count": 12557
     },
     {
-      "name": "Page E",
-      "uv": 1890,
-      "pv": 4800
+      "name": "Harbor",
+      "count": 14131
     },
     {
-      "name": "Page F",
-      "uv": 2390,
-      "pv": 3800
+      "name": "Hollywood",
+      "count": 16988
     },
     {
-      "name": "Page G",
-      "uv": 3490,
-      "pv": 4300
+      "name": "Wilshire",
+      "count": 14637
+    },
+    {
+      "name": "Harbor",
+      "count": 14131
+    },
+    {
+      "name": "Hollywood",
+      "count": 16988
+    },
+    {
+      "name": "Wilshire",
+      "count": 14637
+    },
+    {
+      "name": "Harbor",
+      "count": 14131
+    },
+    {
+      "name": "Hollywood",
+      "count": 16988
+    },
+    {
+      "name": "Wilshire",
+      "count": 14637
+    },{
+      "name": "Harbor",
+      "count": 14131
+    },
+    {
+      "name": "Hollywood",
+      "count": 16988
+    },
+    {
+      "name": "Wilshire",
+      "count": 14637
+    },
+    {
+      "name": "Harbor",
+      "count": 14131
+    },
+    {
+      "name": "Hollywood",
+      "count": 16988
+    },
+    {
+      "name": "Wilshire",
+      "count": 14637
+    },
+    {
+      "name": "Harbor",
+      "count": 14131
+    },
+    {
+      "name": "Hollywood",
+      "count": 16988
+    },
+    {
+      "name": "Wilshire",
+      "count": 14637
     }
   ]
 
   return (
     <div className="page2-container">
-      <h1>Demographic Analysis</h1>
       <div className="filters">
         <span>Area:</span>
         <select
@@ -61,25 +112,31 @@ const DAnalysis = () => {
             </option>
           ))}
         </select>
-
       </div>
+  
       <div className="graphs">
         {/* Placeholder for graphs */}
-        <ResponsiveContainer width={1200} height={400}>
-          <BarChart layout='vertical' width={500} height={300} data={data} barSize={20}>
-            <CartesianGrid strokeDasharray="3 3" />
+        <ResponsiveContainer width="100%" height="80%">
+          <BarChart  data={data} margin={{
+            top: 20,
+            right: 20,
+            bottom: 20,
+            left: 40,
+          }}
+            layout='vertical'
+            >
             <XAxis type="number" />
-            <YAxis  dataKey="name" />
+            <YAxis dataKey="name" type="category" />
             <Tooltip />
             <Legend />
-            <Bar dataKey="pv" fill="#8884d8" activeBar={<Rectangle fill="pink" stroke="blue" />} />
-            <Bar dataKey="uv" fill="#82ca9d" activeBar={<Rectangle fill="gold" stroke="purple" />} />
+            <Bar dataKey="count" barSize={20} fill="#413ea0" />
           </BarChart>
         </ResponsiveContainer>
+        <div className="graph">Graph 2</div>
+      <div className="graph">Graph 3</div>
       </div>
 
-      <div className="graph">Graph 2</div>
-      <div className="graph">Graph 3</div>
+      
     </div>
   );
 };
