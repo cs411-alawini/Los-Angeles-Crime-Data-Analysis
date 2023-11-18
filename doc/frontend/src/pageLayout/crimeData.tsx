@@ -6,17 +6,17 @@ import Modal from "../modal/modal";
 import L from 'leaflet';
 import CrimeSelector from '../component/crimeSelector';
 function CrimeData() {
-    var crimes = [{ cid: "103044679", time: "2230", location: "1101 W 39TH PL", crimeType: "BATTERY1 - SIMPLE ASSAULT", LL: [34.0141, -118.2978] },
-    { cid: "103044681", time: "2231", location: "11002 W 391TH PL", crimeType: "BATTERY2 - SIMPLE ASSAULT", LL: [34.0459, -118.2545] },
-    { cid: "103044682", time: "2232", location: "11003 W 392TH PL", crimeType: "BATTERY3 - SIMPLE ASSAULT", LL: [33.9739, -118.263] },
-    { cid: "103044683", time: "2233", location: "11004 W 393TH PL", crimeType: "BATTERY4 - SIMPLE ASSAULT", LL: [34.1685, -118.4019] },
-    { cid: "103044684", time: "2234", location: "11005 W 395TH PL", crimeType: "BATTERY5 - SIMPLE ASSAULT", LL: [34.2198, -118.4468] },
-    { cid: "103044685", time: "2235", location: "11006 W 396TH PL", crimeType: "BATTERY6 - SIMPLE ASSAULT", LL: [34.0452, -118.2534] },
-    { cid: "103044686", time: "2236", location: "11007 W 397TH PL", crimeType: "BATTERY7 - SIMPLE ASSAULT", LL: [34.0483, -118.2631] },
-    { cid: "103044687", time: "2237", location: "11008 W 398TH PL", crimeType: "BATTERY8 - SIMPLE ASSAULT", LL: [34.0448, -118.2474] },
-    { cid: "103044688", time: "2238", location: "11009 W 399TH PL", crimeType: "BATTERY9 - SIMPLE ASSAULT", LL: [34.0677, -118.2398] },
-    { cid: "103044689", time: "2239", location: "11000 W 390TH PL", crimeType: "BATTERY0 - SIMPLE ASSAULT", LL: [33.9019, -118.2916] }];
-    
+    var crimes = [{ cid: "103044679", time: "2230", location: "1101 W 39TH PL", crimeType: "BATTERY1 - SIMPLE ASSAULT", LL: [34.0141, -118.2978], victimSex: "M", victimAge: 20 },
+    { cid: "103044681", time: "2231", location: "11002 W 391TH PL", crimeType: "BATTERY2 - SIMPLE ASSAULT", LL: [34.0459, -118.2545], victimSex: "M", victimAge: 20 },
+    { cid: "103044682", time: "2232", location: "11003 W 392TH PL", crimeType: "BATTERY3 - SIMPLE ASSAULT", LL: [33.9739, -118.263], victimSex: "M", victimAge: 21 },
+    { cid: "103044683", time: "2233", location: "11004 W 393TH PL", crimeType: "BATTERY4 - SIMPLE ASSAULT", LL: [34.1685, -118.4019], victimSex: "F", victimAge: 22 },
+    { cid: "103044684", time: "2234", location: "11005 W 395TH PL", crimeType: "BATTERY5 - SIMPLE ASSAULT", LL: [34.2198, -118.4468], victimSex: "M", victimAge: 26 },
+    { cid: "103044685", time: "2235", location: "11006 W 396TH PL", crimeType: "BATTERY6 - SIMPLE ASSAULT", LL: [34.0452, -118.2534], victimSex: "F", victimAge: 47 },
+    { cid: "103044686", time: "2236", location: "11007 W 397TH PL", crimeType: "BATTERY7 - SIMPLE ASSAULT", LL: [34.0483, -118.2631], victimSex: "M", victimAge: 30 },
+    { cid: "103044687", time: "2237", location: "11008 W 398TH PL", crimeType: "BATTERY8 - SIMPLE ASSAULT", LL: [34.0448, -118.2474], victimSex: "X", victimAge: 43 },
+    { cid: "103044688", time: "2238", location: "11009 W 399TH PL", crimeType: "BATTERY9 - SIMPLE ASSAULT", LL: [34.0677, -118.2398], victimSex: "M", victimAge: 32 },
+    { cid: "103044689", time: "2239", location: "11000 W 390TH PL", crimeType: "BATTERY0 - SIMPLE ASSAULT", LL: [33.9019, -118.2916], victimSex: "F", victimAge: 25 }];
+
     const [startDate, setStartDate] = useState<Date>(new Date(Date.now()))
     const [endDate, setEndDate] = useState<Date>(new Date(Date.now()))
     const [location, setLocation] = useState<string>("")
@@ -36,7 +36,8 @@ function CrimeData() {
 
     //crime marker react component. This will create a record in the table with a corresponding marker in the map
     function CrimeItem({ map, record }: any) {
-        const marker = L.marker(record.LL).bindPopup("This is popup content")
+        const markerInfo = `<p>Date: ${record.time} <br> Type: ${record.crimeType} <br> Address: ${record.location} <br> Victim Sex: ${record.victimSex}    Vitctim Age: ${record.victimAge}</p>`
+        const marker = L.marker(record.LL).bindPopup(markerInfo)
         marker.addTo(map);
 
         const onClick = () => {
@@ -44,13 +45,23 @@ function CrimeData() {
             marker.openPopup()
         }
 
+        // const editRecord = () => {
+        //     record.cid = "1030446790"
+        //     record.crimeType = "aaaaaa"
+        //     setEdit(true)
+        // }
+
         return (
-            <button onClick={onClick} className='crime-record-container'>
-                <div className='crime-record-context record'>{record.cid}</div>
-                <div className='crime-record-context time'>{record.time}</div>
-                <div className='crime-record-context location'>{record.location}</div>
-                <div className='crime-record-context crime'>{record.crimeType}</div>
-            </button>
+            // <div className='crime-record-wrapper'>
+                <button onClick={onClick} className='crime-record-container'>
+                    <div className='crime-record-context record'>{record.cid}</div>
+                    <div className='crime-record-context time'>{record.time}</div>
+                    <div className='crime-record-context location'>{record.location}</div>
+                    <div className='crime-record-context crime'>{record.crimeType}</div>
+                </button>
+                // <button onClick={editRecord} > edit</button>
+            //</div> 
+
         );
     }
 
@@ -66,19 +77,17 @@ function CrimeData() {
         return null
     }
 
-    useEffect(() => { 
-        if(update === true){
-            setCrimeList([...crimeList,newCrime])
+    useEffect(() => {
+        if (update === true) {
+            setCrimeList([...crimeList, newCrime])
             setUpdate(false)
         }
     }, [update])
 
-
-
     return (
-        
+
         <div className="page1-container">
-            
+
             <div className='crime-table-container'>
                 <div className='filter-container'>
                     <label htmlFor="start-date" className='filter'> From : </label>
@@ -87,8 +96,8 @@ function CrimeData() {
                     <input type="date" id="end-date" className='filter' onChange={(event) => { setEndDate(new Date(event.target.value)) }} value={endDate.toISOString().split('T')[0]} min={startDate.toISOString().split('T')[0]} max="2023-12-31" />
                     <label htmlFor="filter-location" className='filter'> Location : </label>
                     <input type="text" id="filter-location" className='filter' onChange={(event) => { setLocation(event.target.value) }} placeholder={"location"} />
-                    
-                    <CrimeSelector setCrimeType={setCrimeType}/>
+
+                    <CrimeSelector setCrimeType={setCrimeType} />
                     <button className='filter filter-search' onClick={() => fetchData(startDate, endDate, location, crimeType)}><i className="fa-solid fa-magnifying-glass"></i></button>
                 </div>
                 <div className='crime-title-container'>
@@ -100,12 +109,12 @@ function CrimeData() {
                 <div className='crime-record-box'>
                     {
                         crimeList.map((crime: any, id: number) => {
-                            return map ? <CrimeItem key={id} map={map} record={crime} /> : <div key={id}></div>
+                            return map ? <CrimeItem key={id} map={map} record={crime}/> : <div key={id}></div>
                         })
                     }
                 </div>
             </div>
-            
+
             <div className='crime-map-container'>
                 {
                     useMemo(() => (
@@ -126,8 +135,8 @@ function CrimeData() {
                     )
                 }
             </div>
-            <Modal className="modal" isOpen={open} onClose={() => {setOpen(false); setUpdate(false)}} update={setUpdate} newCrime={setNewCrime} address={address} ll = {latlng}/>
-            
+            <Modal className="modal" isOpen={open} onClose={() => { setOpen(false); setUpdate(false) }} update={setUpdate} newCrime={setNewCrime} address={address} ll={latlng} />
+
         </div>
     )
 }

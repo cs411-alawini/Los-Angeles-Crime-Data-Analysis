@@ -43,6 +43,15 @@
     margin-right: 10px;
 }
 
+.crime-record-wrapper{
+    display: flex;
+    flex-direction: row;
+    border-bottom: solid black 2px;
+    margin-top: 1%;
+    width: 100%;
+    height: 8%;
+}
+
 .crime-record-container {
     display: flex;
     flex-direction: row;
