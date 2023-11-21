@@ -8,11 +8,15 @@
   
   .graph {
     width: 100%;
-    height: 200px; /* Adjust height as needed */
-    background-color: #007bff; /* Placeholder color */
+    height: 75vh; /* Adjust height as needed */
+    min-height: 500px;
     color: white;
+    padding-bottom: 60px;
+  }
+
+  .graph h2 {
+    color: black;
+    margin-top: 0;
     text-align: center;
-    line-height: 200px; /* Center text vertically */
-    margin-bottom: 20px;
   }
   
