@@ -1,22 +1,44 @@
 .page2-container {
-    padding: 20px;
-  }
-  
-  .filters {
-    margin-bottom: 20px;
-  }
-  
-  .graph {
-    width: 100%;
-    height: 75vh; /* Adjust height as needed */
-    min-height: 500px;
-    color: white;
-    padding-bottom: 60px;
-  }
+  padding: 10px;
+}
 
-  .graph h2 {
-    color: black;
-    margin-top: 0;
-    text-align: center;
-  }
-  
+.filters {
+  margin-bottom: 20px;
+}
+
+.graph {
+  width: 100%;
+  height: 75vh;
+  /* Adjust height as needed */
+  min-height: 500px;
+  color: white;
+  padding-bottom: 60px;
+}
+
+.graph h2 {
+  color: black;
+  margin-top: 0;
+  text-align: center;
+  caret-color: transparent;
+}
+
+.area-graphs-wrapper{
+  border: black solid;
+  height: 98vh;
+}
+
+.area-select{
+  margin: 10px  20px;
+}
+
+.graph-wrapper-contianer{
+  height: 85vh;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.in-graph{
+  width: 50%;
+  height: 100%;
+}
