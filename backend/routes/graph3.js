@@ -27,20 +27,13 @@ router.get('/', async function(req, res) {
                      WHERE Division = '${Division}'`;
         let dateResult = await query(sql);
 
-        const month_name = {'01': 'Jan', '02': 'Feb', '03': 'Mar', 
-                            '04': 'Apr', '05': 'May', '06': 'Jun', 
-                            '07': 'Jul', '08': 'Aug', '09': 'Sep',
-                            '10': 'Oct', '11': 'Nov', '12': 'Dec'};
-
         var month_count = new Map();        
 
         // count crimNum of each month
         for (i = 0; i < dateResult.length; i++) {
             date = dateResult[i].DateOcc.toString();
-            console.log(date);
-            console.log(date[5]);
-            console.log(date.substr(5,2));
-            month = month_name[date.substr(5, 2)]
+            // see how toString works for date object
+            month = date.substr(4, 3);
 
             if (month_count.has(month)) {
                 month_count.set(month, month_count.get(month) + 1);
