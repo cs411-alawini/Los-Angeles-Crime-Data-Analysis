@@ -1,6 +1,8 @@
 import { useState } from "react";
 import "./modal.css"
 import CrimeSelector from "../component/crimeSelector";
+import axios from "axios";
+
 const Modal = ({ isOpen, onClose, update, newCrime, address, ll }: any) => {
     if (!isOpen) return null;
 
@@ -11,7 +13,6 @@ const Modal = ({ isOpen, onClose, update, newCrime, address, ll }: any) => {
         loc = address.address.road
     }
     const today = new Date(Date.now())
-    const [cid, setCid] = useState<number>(103044691)
     const [location, setLocation] = useState<string>(loc)
     const [occurDate, SetOccurDate] = useState<Date>(new Date(Date.now()))
     const [crimeType, setCrimeType] = useState<string>("UNKNOW")
@@ -20,12 +21,12 @@ const Modal = ({ isOpen, onClose, update, newCrime, address, ll }: any) => {
     const [detail, setDetail] = useState<string>("")
 
     const handleUpdate = async () => {
-        const crime = { cid: cid, time: occurDate.toISOString().split('T')[0], location: location, crimeType: crimeType, LL: ll, victimSex: vSex, victimAge: vAge, description: detail }
+        const crimeTemp = { DateOcc: occurDate.toISOString().split('T')[0], Location: location, CrimeType: crimeType, Lat: ll[0], Lng: ll[1], VictimSex: vSex, VictimAge: vAge }
+        const crime = { RecordId: 123, DateOcc: occurDate.toISOString().split('T')[0], Location: location, CrimeTypeDesc: crimeType, Latitude: ll[0], Longitude: ll[1], detail: detail }
         await newCrime(crime)
         await update(true)
-        setCid(prev => prev + 1)
-        //post function
-        console.log(crime)
+        const res = await axios.post('http://35.209.203.48/record', crimeTemp)
+        console.log(res)
         onClose()
     };
 
@@ -40,9 +41,11 @@ const Modal = ({ isOpen, onClose, update, newCrime, address, ll }: any) => {
                     <div className="modal-body-line">
                         <label htmlFor="modal-occurDate" className='filter'> Occur Date : </label>
                         <input type="date" id="modal-occurDate" className='filter' onChange={(event) => { SetOccurDate(new Date(event.target.value)) }} value={occurDate.toISOString().split('T')[0]} max={today.toISOString().split('T')[0]} />
-                        <CrimeSelector setCrimeType={setCrimeType} />
+                        
                     </div>
-
+                    <div className="modal-body-line">
+                        <CrimeSelector first={"UNKNOW"} setCrimeType={setCrimeType} />
+                    </div>
                     <div className="modal-body-line">
                         <label htmlFor="modal-location" className='filter'> Location : </label>
                         <input type="text" id="modal-location" className='filter' onChange={(event) => { setLocation(event.target.value) }} placeholder={location} value={location}/>

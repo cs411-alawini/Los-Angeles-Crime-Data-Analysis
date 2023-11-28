@@ -5,7 +5,6 @@
     flex-direction: row;
 }
 
-
 .crime-table-container {
     width: 60%;
     height: 85%;
@@ -16,7 +15,7 @@
 
 .filter-container {
     background-color: white;
-    height: 10%;
+    height: 12%;
     margin: 1.5% 1%;
     display: flex;
     justify-content: space-around;
@@ -24,13 +23,20 @@
     padding-left: 8px;
 }
 
+.filter-container-wrapper{
+    padding-left: 10px;
+    height: 100%;
+    width: 90%;
+}
+
 .filter{
     caret-color: transparent;
-    font-size: 17px;
+    font-size: 16px;
+    margin-top: 5px;
 }
 
 #filter-location {
-    width: 15%;
+    width: 30%;
 }
 
 .filter-search {
@@ -40,7 +46,7 @@
     background:none;
     font-size: x-large;
     margin-left: 5px;
-    margin-right: 10px;
+    margin-right: 20px;
 }
 
 .crime-record-wrapper{
@@ -52,6 +58,11 @@
     height: 8%;
 }
 
+.filter-crime-type{
+    width: 75%;
+    overflow-x: hidden;
+}
+
 .crime-record-container {
     display: flex;
     flex-direction: row;
@@ -59,8 +70,7 @@
     border: none;
     border-bottom: solid black 2px;
     margin-top: 1%;
-    width: 100%;
-    height: 8%;
+    width: 82%;
     cursor: pointer;
     background-color: white;
 }
@@ -71,7 +81,7 @@
     justify-content: space-evenly;
     margin-top: 1%;
     width: 100%;
-    height: 8%;
+    height: 10%;
 }
 
 .crime-record {
@@ -87,9 +97,9 @@
     background-color: white;
     margin: 1.5% auto;
     width: 98%;
-    height: 72%;
-    max-height: 75%;
-    overflow-y: scroll;
+    height: 68%;
+    max-height: 68%;
+    overflow-x: hidden;
 }
 
 .crime-record-context {
@@ -100,6 +110,7 @@
     font-size: medium;
     background-color: white;
     border-left: solid black 2px;
+    overflow-x: hidden;
 }
 
 .title {
@@ -113,19 +124,33 @@
 }
 
 .time {
-    width: 25%;
+    width: 20%;
+    height: 100%;
 }
 
 .location {
-    width: 25%;
+    width: 30%;
+    height: 100%;
 }
 
 .crime {
     width: 30%;
+    height: 100%;
+}
+
+.moreButton-wrapper{
+    margin: 1% 47% ;
 }
 
 .crime-record-container .crime {
     font-size: small;
+}
+
+.crime-record-container-container{
+    display: flex;
+    flex-direction: row;
+    height: 15%;
+    width: 100%;
 }
 
 .crime-map-container {
