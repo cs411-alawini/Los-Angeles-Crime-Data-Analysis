@@ -19,24 +19,13 @@ function query(sql) {
     });
 }
 
-// input: str of hour, e.g. '23'
-// output: output: string of hour's start, e.g. '23:00:00'
-function hourToHourStart(hourStr) {
-    // e.g. for 5, I want it to be '05' after this step
-    hourStr = hourStr.padStart(2, '0');
-    // convert it to like time in MySQL
-    var timeSlotStart = hourStr + ':00:00';
-    return timeSlotStart;
-}
-
-// input: str of hour, e.g. '23'
-// output: output: string of hour's end, e.g. '23:59:00'
-function hourToHourEnd(hourStr) {
-    // e.g. for 5, I want it to be '05' after this step
-    hourStr = hourStr.padStart(2, '0');
-    // convert it to like time in MySQL
-    var timeSlotEnd = hourStr + ':59:00';
-    return timeSlotEnd;
+// hour: a string denoting an hour, like '05'
+// build the timeSlot, like '05:00:00-05:59:00'
+function buildTimeSlot(hour) {
+    const timeSlotStart = `${hour}:00:00`;
+    const timeSlotEnd = `${hour}:59:00`;
+    const timeSlot = `${timeSlotStart}-${timeSlotEnd}`;
+    return timeSlot;
 }
 
 router.get('/', async function(req, res) {
@@ -82,10 +71,10 @@ router.get('/', async function(req, res) {
 
         // format and store the results
         hour_count.forEach(function(val, key) {
-            var timeSlotStart = hourToHourStart(key);
-            var timeSlotEnd = hourToHourEnd(key);
-            var timeSlot = `${timeSlotStart}-${timeSlotEnd}`;
-            results.push({'timeSlot': timeSlot, 'crimeNum': val})
+            hour = key;
+            crimeNum = val;
+            var timeSlot = buildTimeSlot(hour);
+            results.push({'timeSlot': timeSlot, 'crimeNum': crimeNum})
         })
 
         res.send(results);
