@@ -3,18 +3,49 @@ var router = express.Router();
 var db = require('../db');
 
 // my version of query: wrap db.query in a promise
+// terminal doesn't allow me to put await before something that's not a promise
 function query(sql) {
     return new Promise((resolve, reject) => {
-        db.query(sql, (err, results) => {
-            if (err) reject(err);
-            else resolve(results);
+        // though we check err in the main endpoint, not sure if we need to check it here
+        // so check it here as well to be safe
+        db.query(sql, (err, result) => {
+            if (err) {
+                reject(err);
+            }
+            else {
+                resolve(result);
+            }
         });
     });
 }
 
+// input: int of hour, e.g. 23
+// output: output: string of hour's start, e.g. '23:00:00'
+function intToHourStart(hour) {
+    var hourStr = hour.toString();
+    // e.g. for 5, I want it to be '05' after this step
+    hourStr = hourStr.padStart(2, '0');
+    // convert it to like time in MySQL
+    var timeSlotStart = hourStr + ':00:00';
+    return timeSlotStart;
+}
+
+// input: int of hour, e.g. 23
+// output: output: string of hour's end, e.g. '23:59:00'
+function intToHourEnd(hour) {
+    var hourStr = hour.toString();
+    // e.g. for 5, I want it to be '05' after this step
+    hourStr = hourStr.padStart(2, '0');
+    // convert it to like time in MySQL
+    var timeSlotEnd = hourStr + ':59:00';
+    return timeSlotEnd;
+}
+
 router.get('/', async function(req, res) {
+    // doc says area, which means Division column in our database
     const Division = req.query.Division;
     // initialize to -1, will get it later
+    // find if there is a better way if having time in the future
     var StationId = -1;
 
     // async typically use try catch, not then
@@ -30,13 +61,15 @@ router.get('/', async function(req, res) {
         var results = [];
         for (let hour = 0; hour < 24; hour++) {
             // format the time for MySQL use
-            let timeSlotStart = hour.toString().padStart(2, '0') + ':00:00';
-            let timeSlotEnd = hour.toString().padStart(2, '0') + ':59:00';
+            let timeSlotStart = intToHourStart(hour);
+            let timeSlotEnd = intToHourEnd(hour);
             
+            // query for curr timeSlot
             sql = `SELECT COUNT(*) AS crimeNum
                    FROM Record NATURAL JOIN District
                    WHERE StationId = ${StationId}
                    AND TimeOcc BETWEEN '${timeSlotStart}' AND '${timeSlotEnd}'`;
+            // crimeResult should have only 1 row
             let crimeResult = await query(sql);
             
             // format and store this timeSlot's result to results
@@ -47,6 +80,7 @@ router.get('/', async function(req, res) {
 
         res.send(results);
     } catch (err) {
+        // stackoverflow says 500 is internal server error, which I think is the cloest for this case
         res.status(500).send(err);
     }
 });
