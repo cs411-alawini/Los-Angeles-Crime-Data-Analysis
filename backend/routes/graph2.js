@@ -41,6 +41,8 @@ function intToHourEnd(hour) {
     return timeSlotEnd;
 }
 
+// use routers, so we can have only '/' here
+// see app.js
 router.get('/', async function(req, res) {
     // doc says area, which means Division column in our database
     const Division = req.query.Division;
