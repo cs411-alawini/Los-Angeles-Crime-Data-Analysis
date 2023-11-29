@@ -19,10 +19,9 @@ function query(sql) {
     });
 }
 
-// input: int of hour, e.g. 23
+// input: str of hour, e.g. '23'
 // output: output: string of hour's start, e.g. '23:00:00'
-function intToHourStart(hour) {
-    var hourStr = hour.toString();
+function hourToHourStart(hourStr) {
     // e.g. for 5, I want it to be '05' after this step
     hourStr = hourStr.padStart(2, '0');
     // convert it to like time in MySQL
@@ -30,10 +29,9 @@ function intToHourStart(hour) {
     return timeSlotStart;
 }
 
-// input: int of hour, e.g. 23
+// input: str of hour, e.g. '23'
 // output: output: string of hour's end, e.g. '23:59:00'
-function intToHourEnd(hour) {
-    var hourStr = hour.toString();
+function hourToHourEnd(hourStr) {
     // e.g. for 5, I want it to be '05' after this step
     hourStr = hourStr.padStart(2, '0');
     // convert it to like time in MySQL
@@ -41,48 +39,57 @@ function intToHourEnd(hour) {
     return timeSlotEnd;
 }
 
-// use routers, so we can have only '/' here
-// see app.js
 router.get('/', async function(req, res) {
-    // doc says area, which means Division column in our database
+    // doc says area, which should mean Division (a string)
     const Division = req.query.Division;
-    // initialize to -1, will get it later
-    // find if there is a better way if having time in the future
-    var StationId = -1;
 
     // async typically use try catch, not then
     try {
-        // get the StationId of the Division
-        sql = `SELECT StationId
-               FROM PoliceStation 
-               WHERE Division = '${Division}'`;
-        let stationResult = await query(sql);
-        StationId = stationResult[0].StationId;
-        
-        // results collect the crimeNum of each timeSlot (1 hour each)
-        var results = [];
-        for (let hour = 0; hour < 24; hour++) {
-            // format the time for MySQL use
-            let timeSlotStart = intToHourStart(hour);
-            let timeSlotEnd = intToHourEnd(hour);
-            
-            // query for curr timeSlot
-            sql = `SELECT COUNT(*) AS crimeNum
-                   FROM Record NATURAL JOIN District
-                   WHERE StationId = ${StationId}
-                   AND TimeOcc BETWEEN '${timeSlotStart}' AND '${timeSlotEnd}'`;
-            // crimeResult should have only 1 row
-            let crimeResult = await query(sql);
-            
-            // format and store this timeSlot's result to results
-            let timeSlot = `${timeSlotStart}-${timeSlotEnd}`;
-            let crimeNum = crimeResult[0].crimeNum;
-            results.push({'timeSlot': timeSlot, 'crimeNum': crimeNum});
+        var results = []
+
+        // get the dates of crimes happened in this Division
+        const sql = `SELECT TimeOcc
+                     FROM PoliceStation 
+                          NATURAL JOIN District
+                          JOIN Record USING (DistrictId)
+                     WHERE Division = '${Division}'`;
+        // use the promise version
+        // db.query can't be behind the await, terminal doesn't allow me to do so
+        let timeResult = await query(sql);
+
+        // not sure if a dict is ok also
+        var hour_count = new Map();   
+        // ensure that (1) the key is sorted (2) even a timeSlot has no crime, it will be a key
+        for (hour = 0; hour < 24; hour++) {
+            hourStr = hour.toString().padStart(2, '0');
+            hour_count.set(hourStr, 0);
+        }     
+
+        // count crimNum of each month
+        for (i = 0; i < timeResult.length; i++) {
+            time = timeResult[i].TimeOcc.toString();
+            // see how toString works for time object
+            // the format doesn't change. e.g. '02:06:00'
+            hour = time.substr(0, 2);
+
+            if (hour_count.has(hour)) {
+                hour_count.set(hour, hour_count.get(hour) + 1);
+            }
+            else {
+                hour_count.set(hour, 1);
+            }
         }
+
+        // format and store the results
+        hour_count.forEach(function(val, key) {
+            var timeSlotStart = hourToHourStart(key);
+            var timeSlotEnd = hourToHourEnd(key);
+            var timeSlot = `${timeSlotStart}-${timeSlotEnd}`;
+            results.push({'timeSlot': timeSlot, 'crimeNum': val})
+        })
 
         res.send(results);
     } catch (err) {
-        // stackoverflow says 500 is internal server error, which I think is the cloest for this case
         res.status(500).send(err);
     }
 });
