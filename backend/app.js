@@ -10,6 +10,8 @@ var premiseRouter = require('./routes/premise');
 var weaponRouter = require('./routes/weapon');
 var recordRouter = require('./routes/record');
 var graph1Router = require('./routes/graph1');
+var graph2Router = require('./routes/graph2');
+var graph3Router = require('./routes/graph3');
 
 var app = express();
 
@@ -29,6 +31,8 @@ app.use('/premise', premiseRouter);
 app.use('/weapon', weaponRouter);
 app.use('/record', recordRouter);
 app.use('/graph1', graph1Router);
+app.use('/graph2', graph2Router);
+app.use('/graph3', graph3Router);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
