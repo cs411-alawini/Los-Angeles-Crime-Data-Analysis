@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 
-function CrimeSelector({ first , setCrimeType }: any) {
+function CrimeSelector({ first , setCrimeType, value }: any) {
     const [crimeList, setCrimeList] = useState<any>([])
     useEffect( ()=>{
         const fetchCrime = async () => {
@@ -18,7 +18,7 @@ function CrimeSelector({ first , setCrimeType }: any) {
         return (
             <div>
             <label htmlFor="filter-crime-type" className='filter'> Crime type : </label>
-            <select className='filter filter-crime-type' onChange={(event) => setCrimeType(event.target.value)}>
+            <select className='filter filter-crime-type edit-height' defaultValue={value} onChange={(event) => setCrimeType(event.target.value)}>
                 <option value={""}>{first}</option>
                 {
                     crimeList.map((crime:any,id:any ) => {

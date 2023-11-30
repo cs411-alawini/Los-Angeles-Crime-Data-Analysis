@@ -41,6 +41,10 @@
     font-weight: 700;
 }
 
+#modal-location{
+    caret-color: #000;
+}
+
 .close-modal{
     width: 50px;
     height: 50px;
@@ -129,4 +133,41 @@
     text-align:left;
     float:top;
     caret-color: #000;
+}
+
+.edit-modal-body{
+    height: 130px;
+    border: 2px solid #000;
+    margin-top: -15px;
+}
+
+.edit-modal-window{
+    background: white;
+    height: 220px;
+    width: 480px;
+    margin: auto;
+    padding: 2%;
+    border: 2px solid #000;
+    border-radius: 10px;
+    box-shadow: 2px solid black;
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-close-modal,
+.edit-submit-report
+{
+    width: 50px;
+    height: 40px;
+    border-style: none;
+    background-color: transparent;
+    position: absolute;
+    margin-left: 80px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.edit-submit-report{
+    margin-left: 300px;
 }

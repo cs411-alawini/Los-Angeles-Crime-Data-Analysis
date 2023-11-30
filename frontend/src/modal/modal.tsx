@@ -21,7 +21,13 @@ const Modal = ({ isOpen, onClose, update, newCrime, address, ll }: any) => {
     const [detail, setDetail] = useState<string>("")
 
     const handleUpdate = async () => {
-        const crimeTemp = { DateOcc: occurDate.toISOString().split('T')[0], Location: location, CrimeType: crimeType, Lat: ll[0], Lng: ll[1], VictimSex: vSex, VictimAge: vAge }
+        const crimeTemp = { DateOcc: occurDate.toISOString().split('T')[0], 
+                            Location: location, 
+                            CrimeType: crimeType, 
+                            Lat: ll[0], 
+                            Lng: ll[1], 
+                            VictimSex: vSex, 
+                            VictimAge: vAge }
         const crime = { RecordId: 123, DateOcc: occurDate.toISOString().split('T')[0], Location: location, CrimeTypeDesc: crimeType, Latitude: ll[0], Longitude: ll[1], detail: detail }
         await newCrime(crime)
         await update(true)
@@ -47,7 +53,7 @@ const Modal = ({ isOpen, onClose, update, newCrime, address, ll }: any) => {
                         <CrimeSelector first={"UNKNOW"} setCrimeType={setCrimeType} />
                     </div>
                     <div className="modal-body-line">
-                        <label htmlFor="modal-location" className='filter'> Location : </label>
+                        <label htmlFor="modal-location" className='filter' > Location : </label>
                         <input type="text" id="modal-location" className='filter' onChange={(event) => { setLocation(event.target.value) }} placeholder={location} value={location}/>
                     </div>
 

@@ -25,8 +25,6 @@ const DeleteModal = ({ isOpen, onClose, setOutDeleted,setDID, crime }: any) => {
                     <button className='delete-close-modal' onClick={onClose}><i className="fa-solid fa-xmark"></i></button>
                     <button className='delete-submit-report' onClick={() => {handleDelete()}}>comfirm</button>
                 </div>
-
-
             </div>
         </div>
     );

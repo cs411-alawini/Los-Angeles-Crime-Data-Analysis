@@ -7,30 +7,52 @@ import Modal from "../modal/modal";
 import L from 'leaflet';
 import CrimeSelector from '../component/crimeSelector';
 import DeleteModal from '../modal/deleteModal';
+import EditModal from '../modal/editModal';
 function CrimeData() {
-    //var crimes = [{ cid: "103044679", time: "2230", location: "1101 W 39TH PL", crimeType: "BATTERY1 - SIMPLE ASSAULT", LL: [34.0141, -118.2978], victimSex: "M", victimAge: 20 }];
-    var crimes: any = []
+    /* crime structure  { 
+                            recordID: "103044679", 
+                            DateOcc: "2230", 
+                            Location: "1101 W 39TH PL", 
+                            CrimeTypeDesc: "BATTERY1 - SIMPLE ASSAULT", 
+                            Lat: 34.0141, 
+                            Lng: -118.2978, 
+                            victimSex: "M", 
+                            victimAge: 20 
+                        };
+    */
 
+    // map ref for the leaflet map
+    const [map, setMap] = useState<any>()
+
+    // form data
     const [startDate, setStartDate] = useState<Date>(new Date("2020-01-01"))
     const [endDate, setEndDate] = useState<Date>(new Date(Date.now()))
     const [location, setLocation] = useState<string>("")
-    const [map, setMap] = useState<any>()
-    const [crimeList, setCrimeList] = useState<any>(crimes)
     const [crimeType, setCrimeType] = useState<string>("")
-    const [open, setOpen] = useState<boolean>(false);
-    const [onAdd, setOnAdd] = useState<boolean>(false);
     const [newCrime, setNewCrime] = useState<any>([])
     const [address, setAddress] = useState<any>([])
     const [latlng, setLatlng] = useState<any>()
-    const [page, setPage] = useState<number>(1)
-    const [isVisible, setIsVisible] = useState(false);
 
+    //crime list for the table
+    const [crimeList, setCrimeList] = useState<any>([])
+    //control of open the new record form
+    const [open, setOpen] = useState<boolean>(false);
+    //keep track of the page when fetch
+    const [page, setPage] = useState<number>(1)
+    //control of adding/fetching more data to the table
+    const [onAdd, setOnAdd] = useState<boolean>(false);
+    //control the if the MORE is show up in the end of the table
+    const [isVisible, setIsVisible] = useState(false);
+    //control the deleteFunction and deletedID
     const [outDeleted, setOutDeleted] = useState<boolean>(false);
     const [deleteId, setdeleteId] = useState<string>("");
+    
+    const [outEdit,setOutEdit] = useState<boolean>(false);
+    const [editedCrime, setEditedCrime] = useState<{}>({});
+    const [editIndex, setEditIndex] = useState<number>();
 
     //fetch data from backend using api
     const fetchData = async function (startDate: Date, endDate: Date, location: string, crimeType: string): Promise<void> {
-
         let url = `http://35.209.203.48/record?FromDate='${startDate.toISOString().split('T')[0]}'&ToDate='${endDate.toISOString().split('T')[0]}'`
 
         if (location !== "") {
@@ -40,7 +62,7 @@ function CrimeData() {
         if (crimeType !== "") {
             url += `&CrimeType=${crimeType}`
         }
-        console.log(url)
+
         setPage(2)
         const res = await axios.get(url);
         setCrimeList(res.data.data)
@@ -49,11 +71,9 @@ function CrimeData() {
         } else {
             setIsVisible(false)
         }
-
     }
 
     const moreData = async function (startDate: Date, endDate: Date, location: string, crimeType: string): Promise<void> {
-
         let url = `http://35.209.203.48/record?FromDate='${startDate.toISOString().split('T')[0]}'&ToDate='${endDate.toISOString().split('T')[0]}'`
 
         if (location !== "") {
@@ -65,16 +85,15 @@ function CrimeData() {
         }
         url += `&Page=${page}`
 
-        console.log(url)
         const res = await axios.get(url);
         const newCrime = res.data.data
         setPage(prev => prev + 1)
         setCrimeList([...crimeList, ...newCrime])
     }
-
     //crime marker react component. This will create a record in the table with a corresponding marker in the map
-    function CrimeItem({ map, record }: any) {
+    function CrimeItem({ map, record,index }: any) {
         const [openDelete,setOpenDelete] = useState<boolean>(false);
+        const [openEdit,setOpenEdit] = useState<boolean>(false);
         const markerInfo = `<p>Date: ${record.DateOcc.split("T")[0]} <br> Type: ${record.CrimeTypeDesc} <br> Address: ${record.Location}</p>`// <br> Victim Sex: ${record.victimSex}    Vitctim Age: ${record.victimAge}</p>`
         const ll: L.LatLngExpression = [Number(record.Latitude), Number(record.Longitude)]
         const marker = L.circleMarker(ll).bindPopup(markerInfo)
@@ -85,10 +104,9 @@ function CrimeData() {
         }
 
         return (
-            //<div className='crime-record-wrapper'>
             <div className='crime-record-container-container'>
                 <div className='crime-record-context record'>
-                    <button onClick={() => {console.log("he")}} > edit </button>
+                    <button onClick={() => {setOpenEdit(true)}} > edit </button>
                     <button onClick={() => setOpenDelete(true)} > delete</button>
                 </div>
                 <button onClick={onClick} className='crime-record-container'>
@@ -96,11 +114,9 @@ function CrimeData() {
                     <div className='crime-record-context location'>{record.Location}</div>
                     <div className='crime-record-context crime'>{record.CrimeTypeDesc}</div>
                 </button>
+                <EditModal isOpen={openEdit} onClose={() => { setOpenEdit(false); setOutEdit(false) }} setOutEdit={setOutEdit} crime={record} setEditedCrime={setEditedCrime} setEditIndex={()=>setEditIndex(index)}/>
                 <DeleteModal isOpen={openDelete} onClose={() => { setOpenDelete(false); setOutDeleted(false) }} setOutDeleted={setOutDeleted} crime={record} setDID={setdeleteId}/>
             </div>
-            //<button onClick={editRecord} > edit</button>
-            //</div> 
-
         );
     }
 
@@ -126,7 +142,19 @@ function CrimeData() {
             setCrimeList(crimeList.filter((crime: { RecordId: string; }) => crime.RecordId !== deleteId));
             setOutDeleted(false)
         }
-    }, [onAdd,outDeleted])
+        
+        if (outEdit === true) {
+            console.log(editIndex)
+            setCrimeList(crimeList.map((item:any,index:number) => {
+                if(index === editIndex) {
+                    console.log(editedCrime)
+                    return editedCrime 
+                }
+                return item
+            }))
+            setOutEdit(false)
+        }
+    }, [onAdd,outDeleted,outEdit])
     
     return (
 
@@ -155,7 +183,7 @@ function CrimeData() {
                 <div className='crime-record-box'>
                     {
                         crimeList.map((crime: any, id: number) => {
-                            return map ? <CrimeItem key={id} map={map} record={crime}/> : <div key={id}></div>
+                            return map ? <CrimeItem key={id} map={map} record={crime} index={id}/> : <div key={id}></div>
                         })
                     }
                     {isVisible && <button className='filter filter-search moreButton-wrapper' onClick={() => moreData(startDate, endDate, location, crimeType)}>More</button>}
