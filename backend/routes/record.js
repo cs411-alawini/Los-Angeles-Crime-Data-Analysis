@@ -20,7 +20,8 @@ router.get('/', function(req, res) {
 
     var sql = `SELECT *
                FROM Los_Angeles_Crime_Data.Record R
-               NATURAL JOIN Los_Angeles_Crime_Data.CrimeType C
+               LEFT JOIN Los_Angeles_Crime_Data.CrimeType C
+               ON (R.CrimeTypeId = C.CrimeTypeId)
                WHERE R.DateOcc >= ${FromDate}
                AND R.DateOcc <= ${ToDate}`;
     
@@ -387,7 +388,7 @@ router.delete('/:recordID', function(req, res) {
             });
             return;
         } else {
-            VictimId = result[0].VictimId;
+            // VictimId = result[0].VictimId;
             
             db.query(delRecordSQL, [RecordId], function(err, result) {
                 if(err) {
@@ -396,20 +397,25 @@ router.delete('/:recordID', function(req, res) {
                         data: []
                     });
                     return;
+                // } else {
+                //     db.query(delVictimSQL, [VictimId], function(err, result) {
+                //         if(err) {
+                //             res.status(500).send({
+                //                 message: "Invalid VictimId",
+                //                 data: []
+                //             });
+                //             return;
+                //         } else {
+                //             res.status(200).send({
+                //                 message: "OK",
+                //                 data: []
+                //             });
+                //         }
+                //     });
                 } else {
-                    db.query(delVictimSQL, [VictimId], function(err, result) {
-                        if(err) {
-                            res.status(500).send({
-                                message: "Invalid VictimId",
-                                data: []
-                            });
-                            return;
-                        } else {
-                            res.status(200).send({
-                                message: "OK",
-                                data: []
-                            });
-                        }
+                    res.status(200).send({
+                        message: "OK",
+                        data: []
                     });
                 }
             });
