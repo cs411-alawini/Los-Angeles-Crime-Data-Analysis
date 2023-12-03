@@ -20,7 +20,7 @@ const DAnalysis = () => {
         const areas: string[] = []
         setGraph1(res.data)
         res.data.forEach((location: any) => {
-          areas.push(location.name)
+          areas.push(location.Division)
         });
         setLocations(areas)
       } catch (error) {
@@ -75,26 +75,26 @@ const DAnalysis = () => {
             <XAxis type="number">
               <Label value="Crime Number" position={'bottom'} fontSize={20} />
             </XAxis>
-            <YAxis dataKey="name" type="category" interval={0} width={180} >
+            <YAxis dataKey="Division" type="category" interval={0} width={180} >
               <Label value="Division" angle={-90} position={'left'} fontSize={20} offset={15} />
             </YAxis>
             <Tooltip />
             <CartesianGrid />
-            <Bar dataKey="count" barSize={10} fill="#413ea0" layout='vertical' />
+            <Bar dataKey="COUNT(*)" barSize={10} fill="#413ea0" layout='vertical' />
           </BarChart>
         </ResponsiveContainer>
       </div>
 
       <div className="area-graphs-wrapper" style={divStyle}>
         <div className="filters area-select">
-          <span>Select an area to get more information : </span>
-          <select
+        <label htmlFor="filter-crime-type" className='filter'> Select an area to get more information : </label>
+          <select  className='filter-crime-type'
             value={selectedLocation}
             onChange={(e) => setSelectedLocation(e.target.value)}
           >
             <option value={''}>NONE</option>
-            {locations.map((location) => (
-              <option key={location} value={location}>
+            {locations.map((location,id) => (
+              <option key={id} value={location}>
                 {location}
               </option>
             ))}

@@ -28,10 +28,11 @@ const Modal = ({ isOpen, onClose, update, newCrime, address, ll }: any) => {
                             Lng: ll[1], 
                             VictimSex: vSex, 
                             VictimAge: vAge }
-        const crime = { RecordId: 123, DateOcc: occurDate.toISOString().split('T')[0], Location: location, CrimeTypeDesc: crimeType, Latitude: ll[0], Longitude: ll[1], detail: detail }
+        
+        const res = await axios.post('http://35.209.203.48/record', crimeTemp)
+        const crime = { RecordId: res.data.RecordId, DateOcc: occurDate.toISOString().split('T')[0], Location: location, CrimeTypeDesc: crimeType, Latitude: ll[0], Longitude: ll[1], detail: detail }
         await newCrime(crime)
         await update(true)
-        const res = await axios.post('http://35.209.203.48/record', crimeTemp)
         console.log(res)
         onClose()
     };
@@ -73,7 +74,7 @@ const Modal = ({ isOpen, onClose, update, newCrime, address, ll }: any) => {
                         <textarea id="modal-description"  placeholder={"Detail"} onChange={(event) => setDetail(event.target.value)}/>
                     </div>
                 </div>
-                <button className='submit-report' onClick={() => handleUpdate()}>Sumbit</button>
+                <button className='submit-report' onClick={() => handleUpdate()}>Submit</button>
 
             </div>
         </div>
