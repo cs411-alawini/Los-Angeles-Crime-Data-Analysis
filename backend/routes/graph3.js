@@ -32,7 +32,9 @@ router.get('/', async function(req, res) {
         // db.query can't be behind the await, terminal doesn't allow me to do so
         let result = await query(sql);
 
-        res.send(result);
+        // stored procedures return multiple result sets, the first one is the actual result
+        // e.g. result: [[**actual result**],{"fieldCount":0,"affectedRows":0,"insertId":0,"info":"","serverStatus":34,"warningStatus":0}]
+        res.send(result[0]);
     } catch (err) {
         res.status(500).send(err);
     }
