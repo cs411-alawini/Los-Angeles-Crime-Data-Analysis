@@ -25,42 +25,14 @@ router.get('/', async function(req, res) {
 
     // async typically use try catch, not then
     try {
-        var results = []
-
-        // get the dates of crimes happened in this Division
-        const sql = `SELECT DateOcc
-                     FROM PoliceStation 
-                          NATURAL JOIN District
-                          JOIN Record USING (DistrictId)
-                     WHERE Division = '${Division}'`;
+        // call the stored procedure get_crimeNum_month(IN givenDivision)
+        // return crimeNum of each month, the month is formatted like 'Jan', 'Feb'
+        const sql = `CALL get_crimeNum_month('${Division}');`;
         // use the promise version
         // db.query can't be behind the await, terminal doesn't allow me to do so
-        let dateResult = await query(sql);
+        let result = await query(sql);
 
-        // not sure if a dict is ok also
-        var month_count = new Map();        
-
-        // count crimNum of each month
-        for (i = 0; i < dateResult.length; i++) {
-            date = dateResult[i].DateOcc.toString();
-            // see how toString works for date object
-            // the format change after conversion from date to string
-            month = date.substr(4, 3);
-
-            if (month_count.has(month)) {
-                month_count.set(month, month_count.get(month) + 1);
-            }
-            else {
-                month_count.set(month, 1);
-            }
-        }
-
-        // format and store the results
-        month_count.forEach(function(val, key) {
-            results.push({'month': key, 'crimeNum': val})
-        })
-
-        res.send(results);
+        res.send(result);
     } catch (err) {
         res.status(500).send(err);
     }
