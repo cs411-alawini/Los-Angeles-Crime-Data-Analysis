@@ -203,7 +203,7 @@ router.put('/:recordID', function(req, res) {
     var Lat = req.body.Lat;
     var Lng = req.body.Lng;
     var RpdDistId = req.body.RpdDistId;
-    var CrimeType = req.body.CrimeType || 'null';
+    var CrimeType = req.body.CrimeTypeDesc || 'null';
     var PremiseType = req.body.PremiseType || 'null';
     var WeaponType = req.body.WeaponType || 'null';
     var VictimSex = req.body.VictimSex;

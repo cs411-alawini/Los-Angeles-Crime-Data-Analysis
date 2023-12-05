@@ -7,7 +7,7 @@ const DeleteModal = ({ isOpen, onClose, setOutDeleted,setDID, crime }: any) => {
     const handleDelete = async () => {
         await setDID(crime.RecordId)
         await setOutDeleted(true)
-        const res = await axios.delete(`http://35.209.203.48/record/${crime.RecordId}`)
+        const res = await axios.delete(`http://35.209.7.162/record/${crime.RecordId}`)
         console.log(res)
         onClose()
     };

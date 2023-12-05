@@ -29,7 +29,7 @@ const Modal = ({ isOpen, onClose, update, newCrime, address, ll }: any) => {
                             VictimSex: vSex, 
                             VictimAge: vAge }
         
-        const res = await axios.post('http://35.209.203.48/record', crimeTemp)
+        const res = await axios.post('http://35.209.7.162/record', crimeTemp)
         const crime = { RecordId: res.data.RecordId, DateOcc: occurDate.toISOString().split('T')[0], Location: location, CrimeTypeDesc: crimeType, Latitude: ll[0], Longitude: ll[1], detail: detail }
         await newCrime(crime)
         await update(true)

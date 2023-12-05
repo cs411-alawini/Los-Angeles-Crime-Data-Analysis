@@ -53,7 +53,7 @@ function CrimeData() {
 
     //fetch data from backend using api
     const fetchData = async function (startDate: Date, endDate: Date, location: string, crimeType: string): Promise<void> {
-        let url = `http://35.209.203.48/record?FromDate='${startDate.toISOString().split('T')[0]}'&ToDate='${endDate.toISOString().split('T')[0]}'`
+        let url = `http://35.209.7.162/record?FromDate='${startDate.toISOString().split('T')[0]}'&ToDate='${endDate.toISOString().split('T')[0]}'`
 
         if (location !== "") {
             url += `&Location=${location}`
@@ -74,7 +74,7 @@ function CrimeData() {
     }
 
     const moreData = async function (startDate: Date, endDate: Date, location: string, crimeType: string): Promise<void> {
-        let url = `http://35.209.203.48/record?FromDate='${startDate.toISOString().split('T')[0]}'&ToDate='${endDate.toISOString().split('T')[0]}'`
+        let url = `http://35.209.7.162/record?FromDate='${startDate.toISOString().split('T')[0]}'&ToDate='${endDate.toISOString().split('T')[0]}'`
 
         if (location !== "") {
             url += `&Location=${location}`

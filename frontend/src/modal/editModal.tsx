@@ -34,8 +34,8 @@ const EditModal = ({ isOpen, onClose, setOutEdit, setEditedCrime, crime, setEdit
             DateOcc: occurDate.toISOString().split('T')[0],
             Location: location
         }
-        console.log(`http://35.209.203.48/record/${crime.RecordId}`)
-        const res = await axios.put(`http://35.209.203.48/record/${crime.RecordId}`, editTemp)
+        console.log(`http://35.209.7.162/record/${crime.RecordId}`)
+        const res = await axios.put(`http://35.209.7.162/record/${crime.RecordId}`, editTemp)
         console.log(res)
         onClose()
     };

@@ -8,7 +8,7 @@ function CrimeSelector({ first , setCrimeType, value }: any) {
         const fetchCrime = async () => {
             const data = await axios({
                 method: 'get',
-                url: "http://35.209.203.48/crime",
+                url: "http://35.209.7.162/crime",
               })
               setCrimeList(data.data.data)
         }

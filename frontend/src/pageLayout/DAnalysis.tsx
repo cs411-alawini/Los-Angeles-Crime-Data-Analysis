@@ -16,7 +16,7 @@ const DAnalysis = () => {
   useEffect(() => {
     const getGraph1Data = async () => {
       try {
-        const res = await axios.get("http://35.209.203.48/graph1")
+        const res = await axios.get("http://35.209.7.162/graph1")
         const areas: string[] = []
         setGraph1(res.data)
         res.data.forEach((location: any) => {
@@ -33,8 +33,8 @@ const DAnalysis = () => {
   useEffect(() => {
     const getGraph2Data = async () => {
       if (selectedLocation === "") { setIsVisible(false); return }
-      const resData1 = await axios.get(`http://35.209.203.48/graph2?Division=${selectedLocation}`)
-      const resData2 = await axios.get(`http://35.209.203.48/graph3?Division=${selectedLocation}`)
+      const resData1 = await axios.get(`http://35.209.7.162/graph3?Division=${selectedLocation}`)
+      const resData2 = await axios.get(`http://35.209.7.162/graph2?Division=${selectedLocation}`)
 
       const data1 = resData1.data
       const updatedData = data1.map((item: { timeSlot: any; }) => ({
